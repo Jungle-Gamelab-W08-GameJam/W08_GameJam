@@ -6,10 +6,13 @@ public class DragController : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     private CanvasGroup canvasGroup;
     private RectTransform rectTransform;
 
+    private Vector2 originalPosition;
+
     private void Awake()
     {
+   rectTransform = GetComponent<RectTransform>(); // rectTransform을 먼저 초기화
+        originalPosition = rectTransform.anchoredPosition; // 이제 원래 위치를 안전하게 저장할 수 있음
         canvasGroup = GetComponent<CanvasGroup>();
-        rectTransform = GetComponent<RectTransform>();
     }
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -27,5 +30,6 @@ public class DragController : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     {
         canvasGroup.alpha = 1f; // Reset the transparency
         canvasGroup.blocksRaycasts = true; // Enable raycasts again
+        rectTransform.anchoredPosition = originalPosition;
     }
 }
