@@ -1,21 +1,8 @@
 using System;
 using UnityEngine;
 
-public class CombinationChecker : MonoBehaviour
+public class CheckCards : MonoBehaviour
 {
-    public char[,] array = new char[3, 3]
-    {
-        {'A', 'C', 'A'},
-        {'C', 'C', 'A'}, 
-        {'B', 'C', 'A'} 
-    };
-
-    void Start()
-    {
-        float multiplier = CheckCombination(array);
-        Debug.Log("µµÇÕ :" + multiplier + "¹è");
-    }
-
     float CheckCombination(char[,] array)
     {
         float multiplier = 1.0f;
