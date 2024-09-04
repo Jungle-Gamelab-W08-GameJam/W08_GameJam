@@ -7,11 +7,14 @@ using UnityEngine.UI;
 
 public class Battle : MonoBehaviour
 {
-    PlayerStats playerStats;
-    CheckCards checkCards;
+    public PlayerStats playerStats;
+    public CheckCards checkCards;
+    public Button battleButton;
 
     [SerializeField]
     private int[] monsterHPs;
+
+
     [SerializeField]
     private int floor;
     [SerializeField]
@@ -19,13 +22,8 @@ public class Battle : MonoBehaviour
     [SerializeField]
     private int monsterMaxHP;
 
-    private Button battleButton;
-
     void Start()
     {
-        playerStats = GameObject.Find("Player").GetComponent<PlayerStats>();
-        checkCards = GameObject.Find("CheckCards").GetComponent<CheckCards>();
-        battleButton = GameObject.Find("BattleButton").GetComponent<Button>();
         floor = 1;
         monsterMaxHP = monsterHPs[floor];
         currMonsterHP = monsterMaxHP;
@@ -54,7 +52,7 @@ public class Battle : MonoBehaviour
             }
         }
 
-        float damage = checkCards.CheckCard(tempArray);
-        Debug.Log("√— πË¿≤ : " + damage);
+        float damage = playerStats.GetATK()*checkCards.CheckCard(tempArray);
+        Debug.Log("√— πË¿≤ : "+damage/ playerStats.GetATK()+"√— µ•πÃ¡ˆ : " + damage);
     }
 }
