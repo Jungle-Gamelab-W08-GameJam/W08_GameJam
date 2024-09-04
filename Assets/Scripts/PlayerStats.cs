@@ -2,13 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Text;
 using TMPro;
-using Unity.VisualScripting.FullSerializer;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
-    private int Atk;
+    public float currHP;
+    public int maxHP;
+
     [SerializeField]
     private List<string> statName = new List<string>();
     [SerializeField]
@@ -18,48 +20,92 @@ public class PlayerStats : MonoBehaviour
     [SerializeField]
     private TextMeshProUGUI goldText;
 
-    private Button button;
+    private Transform button;
     
     public int gold;
+    public int hp;
+
+    [SerializeField]
+    private TextMeshProUGUI upgradeText;
+    [SerializeField]
+    private TextMeshProUGUI resultText;
+
+    private ShopManager shopManager;
 
     void Start()
-    {
-        Atk = 5;
+    {	
+		currHP = maxHP;
+        shopManager = GameObject.FindWithTag("Shop").GetComponent<ShopManager>();
         UpdateStatText();
         UpdateGoldText();
     }
 
     public void GetButton(GameObject obj)
     {
-        button = obj.GetComponent<Button>();
+        button = obj.transform.parent;
     }
 
-    public void ChangeStat(int code, float increaseRate, float successRate)
+    public void ChangeStat(int code)
     {
+        float increaseRate = shopManager.increaseRate * shopManager.feverIncreseRate;
+        List<float> successRate = shopManager.successRate.ConvertAll(x => x * shopManager.feverSuccessRate);
+
+        
+        resultText.text = "";
+
         StartCoroutine(TryUpgrade(code, increaseRate, successRate));
     }
 
-    IEnumerator TryUpgrade(int code, float increaseRate, float successRate)
+    IEnumerator TryUpgrade(int code, float increaseRate, List<float> successRate)
     {
-        button.interactable = false;
+        ButtonDisable(false);
+
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 0; i < 10; i++)
         {
-            if (Random.Range(1, 101) <= successRate)
+            StringBuilder temp = new StringBuilder();
+            temp.Append("Upgrade ").Append(statName[code]).Append("(").Append(successRate[i].ToString()).Append("%)");
+            upgradeText.text = temp.ToString();
+
+            if (Random.Range(1, 101) <= successRate[i])
             {
-                Debug.Log("success");
-                stats[code] *= 1 + (increaseRate / 100);
+                sb.AppendLine("<color=\"blue\">Success!</color>");
+                resultText.text = sb.ToString();
+                if (i == 0) stats[code] *= 1 + (increaseRate / 100);
+                else stats[code] *= (Mathf.Pow(1 + (increaseRate / 100), Mathf.Pow(2, i - 1)));
                 UpdateStatText();
-                yield return new WaitForSeconds(2.0f);
+
+                if(i >= 4) // fever enter
+                {
+                    if (!shopManager.onFever) shopManager.EnterFever();
+                }
+
+                if (Random.Range(1, 101) <= 5) // bonus enter
+                {
+                    shopManager.EnterBonus();
+                }
+
+                yield return new WaitForSeconds(0.2f);
             }
             else
             {
-                Debug.Log("fail");
+                sb.AppendLine("<color=\"red\">Fail...</color>");
+                resultText.text = sb.ToString();
                 break;
             }
         }
 
-        button.interactable = true;
+        ButtonDisable(true);
+    }
+
+    private void ButtonDisable(bool flag)
+    {
+        foreach (Transform sibling in button)
+        {
+            Button siblingButton = sibling.GetComponent<Button>();
+            siblingButton.interactable = flag;
+        }
     }
 
     private void UpdateStatText()
@@ -67,7 +113,7 @@ public class PlayerStats : MonoBehaviour
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < stats.Count; i++)
         {
-            sb.Append(statName[i]).Append(": ").Append(stats[i]).Append("\n");
+            sb.Append(statName[i]).Append(": ").Append(stats[i].ToString("F2")).Append("\n");
         }
         statText.text = sb.ToString();
     }
@@ -83,8 +129,17 @@ public class PlayerStats : MonoBehaviour
         return stats;
     }
 
-    public int GetATK()
+    public void GetGold(int getGold) {
+        gold += getGold;
+        UpdateGoldText();
+    }
+
+    public void ChangeHP(int changeHP)
     {
-        return Atk;
+        currHP = Mathf.Min(currHP + changeHP, maxHP);
+        if (currHP <= 0) {
+            Debug.Log("Game Over");
+            // gameOver
+        }
     }
 }
