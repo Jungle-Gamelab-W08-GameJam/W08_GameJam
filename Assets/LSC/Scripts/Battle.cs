@@ -13,20 +13,26 @@ public class Battle : MonoBehaviour
 
     [SerializeField]
     private int[] monsterHPs;
+    [SerializeField]
+    private int[] monsterATKs;
+
 
 
     [SerializeField]
     private int floor;
     [SerializeField]
-    private int currMonsterHP;
+    private float currMonsterHP;
     [SerializeField]
     private int monsterMaxHP;
+    [SerializeField]
+    private int currMonsterATK;
 
     void Start()
     {
         floor = 1;
         monsterMaxHP = monsterHPs[floor];
         currMonsterHP = monsterMaxHP;
+        currMonsterATK = monsterATKs[floor];
 
         OnButtons();
     }
@@ -52,7 +58,32 @@ public class Battle : MonoBehaviour
             }
         }
 
-        float damage = playerStats.GetATK()*checkCards.CheckCard(tempArray);
-        Debug.Log("총 배율 : "+damage/ playerStats.GetATK()+"총 데미지 : " + damage);
+        float damage = checkCards.CheckCard(tempArray);
+        Debug.Log("총 배율 : "+damage);
+
+        float tempMonsterHP = currMonsterHP - damage;
+
+        if (tempMonsterHP <= 0)
+        {
+            Debug.Log("몬스터 사망");
+            currMonsterHP = 0;
+            playerStats.GetGold(Mathf.Abs((int)tempMonsterHP));
+            MonsterDead();
+        }
+        else
+        {
+            currMonsterHP = tempMonsterHP;
+            playerStats.ChangeHP(-currMonsterATK);
+        }
+        Debug.Log("현재 몬스터 체력 : " + currMonsterHP + "/"+monsterMaxHP+", 플레이어 체력 : "+playerStats.currHP);
+
+    }
+
+    public void MonsterDead()
+    {
+        floor++;
+        monsterMaxHP = monsterHPs[floor];
+        currMonsterHP = monsterMaxHP;
+        currMonsterATK = monsterATKs[floor];
     }
 }

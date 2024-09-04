@@ -8,7 +8,9 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
-    private int Atk;
+    public float currHP;
+    public int maxHP;
+
     [SerializeField]
     private List<string> statName = new List<string>();
     [SerializeField]
@@ -24,7 +26,7 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
-        Atk = 5;
+        currHP = maxHP;
         UpdateStatText();
         UpdateGoldText();
     }
@@ -83,8 +85,17 @@ public class PlayerStats : MonoBehaviour
         return stats;
     }
 
-    public int GetATK()
+    public void GetGold(int getGold) {
+        gold += getGold;
+        UpdateGoldText();
+    }
+
+    public void ChangeHP(int changeHP)
     {
-        return Atk;
+        currHP = Mathf.Min(currHP + changeHP, maxHP);
+        if (currHP <= 0) {
+            Debug.Log("Game Over");
+            // gameOver
+        }
     }
 }
