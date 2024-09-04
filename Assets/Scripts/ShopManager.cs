@@ -29,6 +29,9 @@ public class ShopManager : MonoBehaviour
     private TextMeshProUGUI costs;
 
     [SerializeField]
+    private TextMeshProUGUI prob;
+
+    [SerializeField]
     private TextMeshProUGUI feverText;
     public float feverIncreseRate;
     public float feverSuccessRate;
@@ -45,6 +48,7 @@ public class ShopManager : MonoBehaviour
     {
         playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
         SetCost();
+        SetProb();
         ExitFever();
         ExitBonus();
     }
@@ -84,7 +88,7 @@ public class ShopManager : MonoBehaviour
         {
             playerStats.gold -= hpCost;
             playerStats.UpdateGoldText();
-            playerStats.hp = 100;
+            playerStats.currHP = playerStats.maxHP;
         }
         else
         {
@@ -102,16 +106,29 @@ public class ShopManager : MonoBehaviour
         costs.text = sb.ToString();
     }
 
+    private void SetProb()
+    {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < successRate.Count; i++)
+        {
+            sb.Insert(0, (successRate[i] * feverSuccessRate).ToString() + "%\n");
+        }
+        prob.text = sb.ToString();
+    }
+
     public void EnterFever()
     {
         onFever = true;
         
         feverLeft = 5;
-        feverIncreseRate = 1;
+        feverIncreseRate = 1.5f;
         feverSuccessRate = 1.2f;
 
         feverText.text = "Fever Time! Left Count: ";
         feverText.text += feverLeft.ToString();
+
+        playerStats.UpdateMulText(99);
+        SetProb();
     }
 
     public void ExitFever()
@@ -122,6 +139,8 @@ public class ShopManager : MonoBehaviour
         feverSuccessRate = 1;
 
         feverText.text = "";
+
+        SetProb();
     }
 
     public void EnterBonus()
@@ -143,4 +162,6 @@ public class ShopManager : MonoBehaviour
 
         bonusText.text = " ";
     }
+
+    
 }
