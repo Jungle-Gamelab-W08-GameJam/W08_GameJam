@@ -1085,6 +1085,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 21a3ec48e6aa9304cb48d0b83ab98cfb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  DeckCanvas: {fileID: 0}
+  FightButton: {fileID: 0}
+  CardPhase: {fileID: 0}
   drawCard1: {fileID: 1919628838}
   drawCard2: {fileID: 1055633219}
   drawCard3: {fileID: 1893248016}
@@ -1370,6 +1373,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 94b8183634b88614ca0f67fb9b8545c5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  playerStats: {fileID: 0}
+  checkCards: {fileID: 0}
+  battleButton: {fileID: 0}
   monsterHPs: 6400000064000000640000006400000064000000
   floor: 0
   currMonsterHP: 0
