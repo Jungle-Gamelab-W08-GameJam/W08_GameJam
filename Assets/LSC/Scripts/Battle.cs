@@ -4,20 +4,27 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 
 public class Battle : MonoBehaviour
 {
+    public ShopManager shopManager;
     public PlayerStats playerStats;
     public DrawController drawController;
     public CheckCards checkCards;
     public Button battleButton;
 
+    public Image playerHPImage;
+    public Image monsterHPImage;
+
+    public TMP_Text playerHPText;
+    public TMP_Text monsterHPText;
+
     [SerializeField]
     private int[] monsterHPs;
     [SerializeField]
     private int[] monsterATKs;
-
-
 
     [SerializeField]
     private int floor;
@@ -27,6 +34,8 @@ public class Battle : MonoBehaviour
     private int monsterMaxHP;
     [SerializeField]
     private int currMonsterATK;
+    [SerializeField]
+    private GameObject battleScene;
 
     void Start()
     {
@@ -36,6 +45,8 @@ public class Battle : MonoBehaviour
         currMonsterATK = monsterATKs[floor];
 
         OnButtons();
+        UpdateMonsterHP();
+        UpdatePlayerHP();
     }
 
     void OnButtons()
@@ -43,15 +54,15 @@ public class Battle : MonoBehaviour
         battleButton.onClick.RemoveAllListeners();
 
         battleButton.onClick.AddListener(OnBattle);
-
         battleButton.onClick.AddListener(drawController.DecisionDraw);
-
-
     }
 
     public void OnBattle()
     {
         string[] tempCards = KingManager.Instance.DrawCards;
+        foreach (string card in tempCards) { 
+            Debug.Log(card);
+        }
         char[,] tempArray = new char[3, 3];
 
         // string 배열을 char 배열로 변환
@@ -66,22 +77,33 @@ public class Battle : MonoBehaviour
         float damage = checkCards.CheckCard(tempArray);
         Debug.Log("총 배율 : "+damage);
 
-        float tempMonsterHP = currMonsterHP - damage;
+        currMonsterHP -= damage;
+        UpdateMonsterHP();
 
-        if (tempMonsterHP <= 0)
+        if (currMonsterHP <= 0)
         {
             Debug.Log("몬스터 사망");
             currMonsterHP = 0;
-            playerStats.GetGold(Mathf.Abs((int)tempMonsterHP));
+            playerStats.GetGold(Mathf.Abs((int)currMonsterHP));
             MonsterDead();
         }
         else
         {
-            currMonsterHP = tempMonsterHP;
             playerStats.ChangeHP(-currMonsterATK);
+            UpdatePlayerHP();
         }
-        Debug.Log("현재 몬스터 체력 : " + currMonsterHP + "/"+monsterMaxHP+", 플레이어 체력 : "+playerStats.currHP);
+    }
 
+    public void UpdateMonsterHP()
+    {
+        monsterHPImage.fillAmount = currMonsterHP / monsterMaxHP;
+        monsterHPText.text = currMonsterHP.ToString() + '/' + monsterMaxHP;
+    }
+
+    public void UpdatePlayerHP()
+    {
+        playerHPImage.fillAmount = playerStats.currHP/playerStats.maxHP;
+        playerHPText.text = playerStats.currHP.ToString() + '/' + playerStats.maxHP;
     }
 
     public void MonsterDead()
@@ -91,5 +113,13 @@ public class Battle : MonoBehaviour
         currMonsterHP = monsterMaxHP;
         currMonsterATK = monsterATKs[floor];
         drawController.ClickFightButton();
+
+        if(floor % 5 == 0)
+        {
+            battleScene.SetActive(false);
+            shopManager.OnShopUI();
+        }
+
+        UpdateMonsterHP();
     }
 }
