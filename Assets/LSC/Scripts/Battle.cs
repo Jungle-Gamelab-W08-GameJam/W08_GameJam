@@ -4,6 +4,8 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
+
 
 public class Battle : MonoBehaviour
 {
@@ -11,6 +13,12 @@ public class Battle : MonoBehaviour
     public DrawController drawController;
     public CheckCards checkCards;
     public Button battleButton;
+
+    public Image playerHPImage;
+    public Image monsterHPImage;
+
+    public TMP_Text playerHPText;
+    public TMP_Text monsterHPText;
 
     [SerializeField]
     private int[] monsterHPs;
@@ -41,10 +49,7 @@ public class Battle : MonoBehaviour
         battleButton.onClick.RemoveAllListeners();
 
         battleButton.onClick.AddListener(OnBattle);
-
         battleButton.onClick.AddListener(drawController.DecisionDraw);
-
-
     }
 
     public void OnBattle()
@@ -64,22 +69,21 @@ public class Battle : MonoBehaviour
         float damage = checkCards.CheckCard(tempArray);
         Debug.Log("총 배율 : "+damage);
 
-        float tempMonsterHP = currMonsterHP - damage;
+        currMonsterHP -= damage;
+        monsterHPImage.fillAmount = currMonsterHP / monsterMaxHP;
 
-        if (tempMonsterHP <= 0)
+        if (currMonsterHP <= 0)
         {
             Debug.Log("몬스터 사망");
             currMonsterHP = 0;
-            playerStats.GetGold(Mathf.Abs((int)tempMonsterHP));
+            playerStats.GetGold(Mathf.Abs((int)currMonsterHP));
             MonsterDead();
         }
         else
         {
-            currMonsterHP = tempMonsterHP;
             playerStats.ChangeHP(-currMonsterATK);
         }
         Debug.Log("현재 몬스터 체력 : " + currMonsterHP + "/"+monsterMaxHP+", 플레이어 체력 : "+playerStats.currHP);
-
     }
 
     public void MonsterDead()
