@@ -4,6 +4,9 @@ using UnityEngine;
 using TMPro;
 public class DrawController : MonoBehaviour
 {
+    public GameObject DeckCanvas;
+    public GameObject FightButton;
+    public GameObject CardPhase;
     public GameObject drawCard1;
     public GameObject drawCard2;
     public GameObject drawCard3;
@@ -15,58 +18,18 @@ public class DrawController : MonoBehaviour
     private string[] drawCards = new string[3];
     private string[] handCards = new string[3];
 
+    private bool previousActiveState = false;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        stringList = new List<string>(GenerateArray()); // Initialize the list
-
-        // Randomly select and remove elements for drawCards
-        for (int i = 0; i < drawCards.Length; i++)
-        {
-            int randomIndex = Random.Range(0, stringList.Count);
-            drawCards[i] = stringList[randomIndex];
-            stringList.RemoveAt(randomIndex);
-        }
-
-        // Assign drawCards to the corresponding GameObjects (e.g., TextMeshPro or UI Text component)
-        drawCard1.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[0];
-        drawCard2.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[1];
-        drawCard3.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[2];
-        drawCard1.GetComponent<DragController>().cardIndex = 0;
-        drawCard2.GetComponent<DragController>().cardIndex = 1;
-        drawCard3.GetComponent<DragController>().cardIndex = 2;
-        drawCard1.GetComponent<DragController>().isHandCard = false;
-        drawCard2.GetComponent<DragController>().isHandCard = false;
-        drawCard3.GetComponent<DragController>().isHandCard = false;
-
-
-        // Randomly select and remove elements for handCards
-        for (int i = 0; i < handCards.Length; i++)
-        {
-            int randomIndex = Random.Range(0, stringList.Count);
-            handCards[i] = stringList[randomIndex];
-            stringList.RemoveAt(randomIndex);
-        }
-
-        // Assign handCards to the corresponding GameObjects
-        HandCard1.GetComponentInChildren<TextMeshProUGUI>().text = handCards[0];
-        HandCard2.GetComponentInChildren<TextMeshProUGUI>().text = handCards[1];
-        HandCard3.GetComponentInChildren<TextMeshProUGUI>().text = handCards[2];
-        HandCard1.GetComponent<DragController>().cardIndex = 0;
-        HandCard2.GetComponent<DragController>().cardIndex = 1;
-        HandCard3.GetComponent<DragController>().cardIndex = 2;
-        HandCard1.GetComponent<DragController>().isHandCard = true;
-        HandCard2.GetComponent<DragController>().isHandCard = true;
-        HandCard3.GetComponent<DragController>().isHandCard = true;
-
-        KingManager.Instance.DrawCards = drawCards;
     }
 
     // Update is called once per frame
     void Update()
     {
-
+        CheckDeckCanvasStatus();
     }
 
     // AAA~CCC 까지의 문자열을 생성하는 함수
@@ -164,5 +127,78 @@ public class DrawController : MonoBehaviour
 
         KingManager.Instance.DrawCards = drawCards;
         Debug.Log(KingManager.Instance.DrawCards);
+    }
+
+    private void CheckDeckCanvasStatus()
+    {
+        if (DeckCanvas.activeSelf && !previousActiveState)
+        {
+            // DeckCanvas가 방금 활성화되었을 때 실행되는 로직
+            FightButton.SetActive(true);
+            CardPhase.SetActive(false);
+
+            previousActiveState = true;
+        }
+        else if (!DeckCanvas.activeSelf && previousActiveState)
+        {
+            // DeckCanvas가 방금 비활성화되었을 때 실행되는 로직
+            FightButton.SetActive(false);
+            CardPhase.SetActive(false);
+            stringList = null;
+            drawCards = new string[3];
+            handCards = new string[3];
+
+            previousActiveState = false;
+        }
+    }
+
+    public void ClickFightButton()
+    {
+        FightButton.SetActive(false);
+
+        stringList = new List<string>(GenerateArray()); // Initialize the list
+
+        // Randomly select and remove elements for drawCards
+        for (int i = 0; i < drawCards.Length; i++)
+        {
+            int randomIndex = Random.Range(0, stringList.Count);
+            drawCards[i] = stringList[randomIndex];
+            stringList.RemoveAt(randomIndex);
+        }
+
+        // Assign drawCards to the corresponding GameObjects (e.g., TextMeshPro or UI Text component)
+        drawCard1.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[0];
+        drawCard2.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[1];
+        drawCard3.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[2];
+        drawCard1.GetComponent<DragController>().cardIndex = 0;
+        drawCard2.GetComponent<DragController>().cardIndex = 1;
+        drawCard3.GetComponent<DragController>().cardIndex = 2;
+        drawCard1.GetComponent<DragController>().isHandCard = false;
+        drawCard2.GetComponent<DragController>().isHandCard = false;
+        drawCard3.GetComponent<DragController>().isHandCard = false;
+
+
+        // Randomly select and remove elements for handCards
+        for (int i = 0; i < handCards.Length; i++)
+        {
+            int randomIndex = Random.Range(0, stringList.Count);
+            handCards[i] = stringList[randomIndex];
+            stringList.RemoveAt(randomIndex);
+        }
+
+        // Assign handCards to the corresponding GameObjects
+        HandCard1.GetComponentInChildren<TextMeshProUGUI>().text = handCards[0];
+        HandCard2.GetComponentInChildren<TextMeshProUGUI>().text = handCards[1];
+        HandCard3.GetComponentInChildren<TextMeshProUGUI>().text = handCards[2];
+        HandCard1.GetComponent<DragController>().cardIndex = 0;
+        HandCard2.GetComponent<DragController>().cardIndex = 1;
+        HandCard3.GetComponent<DragController>().cardIndex = 2;
+        HandCard1.GetComponent<DragController>().isHandCard = true;
+        HandCard2.GetComponent<DragController>().isHandCard = true;
+        HandCard3.GetComponent<DragController>().isHandCard = true;
+
+        KingManager.Instance.DrawCards = drawCards;
+
+        CardPhase.SetActive(true);
     }
 }
