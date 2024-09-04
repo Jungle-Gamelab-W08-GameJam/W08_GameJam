@@ -82,9 +82,10 @@ public class Battle : MonoBehaviour
 
         if (currMonsterHP <= 0)
         {
-            Debug.Log("¸ó½ºÅÍ »ç¸Á");
+            float tempHP = currMonsterHP;
             currMonsterHP = 0;
-            playerStats.GetGold(Mathf.Abs((int)currMonsterHP));
+            Debug.Log("¸ó½ºÅÍ »ç¸Á");
+            playerStats.GetGold(Mathf.Abs((int)tempHP));
             MonsterDead();
         }
         else
