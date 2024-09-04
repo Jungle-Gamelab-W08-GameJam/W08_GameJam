@@ -17,8 +17,6 @@ public class Battle : MonoBehaviour
     [SerializeField]
     private int[] monsterATKs;
 
-
-
     [SerializeField]
     private int floor;
     [SerializeField]
