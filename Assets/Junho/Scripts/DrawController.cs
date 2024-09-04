@@ -59,6 +59,15 @@ public class DrawController : MonoBehaviour
         if (stringList.Count == 0)
         {
             stringList = new List<string>(GenerateArray());
+
+            // Remove cards that are already in handCards
+            foreach (var handCard in handCards)
+            {
+                if (!string.IsNullOrEmpty(handCard))
+                {
+                    stringList.Remove(handCard);
+                }
+            }
         }
 
         // Empty the drawCards array
