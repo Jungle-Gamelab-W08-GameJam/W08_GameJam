@@ -56,42 +56,41 @@ public class DrawController : MonoBehaviour
 
     public void DecisionDraw()
     {
-        // Check if stringList is empty and regenerate it if necessary
-        if (stringList.Count == 0)
-        {
-            stringList = new List<string>(GenerateArray());
+        stringList = new List<string>(GenerateArray()); // Initialize the list
 
-            // Remove cards that are already in handCards
-            foreach (var handCard in handCards)
+        bool hasSameCard = true;
+
+        while (hasSameCard)
+        {
+            // Empty the drawCards array
+            for (int i = 0; i < drawCards.Length; i++)
             {
-                if (!string.IsNullOrEmpty(handCard))
+                drawCards[i] = null;
+            }
+
+            // Randomly select and remove elements for drawCards
+            for (int i = 0; i < drawCards.Length; i++)
+            {
+                if (stringList.Count > 0)
                 {
-                    stringList.Remove(handCard);
+                    int randomIndex = Random.Range(0, stringList.Count);
+                    drawCards[i] = stringList[randomIndex];
+                }
+            }
+
+            // DrawCards와 HandCards를 비교하여 같은 값이 있는지 확인
+            hasSameCard = false;
+            for (int i = 0; i < drawCards.Length; i++)
+            {
+                if (System.Array.Exists(handCards, card => card == drawCards[i]))
+                {
+                    hasSameCard = true;
+                    break; // 같은 카드가 있으면 다시 뽑기 위해 루프를 종료하고 while 루프를 다시 시작
                 }
             }
         }
 
-        // Empty the drawCards array
-        for (int i = 0; i < drawCards.Length; i++)
-        {
-            drawCards[i] = null;
-        }
 
-        // Randomly select and remove elements for drawCards
-        for (int i = 0; i < drawCards.Length; i++)
-        {
-            if (stringList.Count > 0)
-            {
-                int randomIndex = Random.Range(0, stringList.Count);
-                drawCards[i] = stringList[randomIndex];
-                stringList.RemoveAt(randomIndex);
-            }
-        }
-
-        // Assign the new drawCards to the corresponding GameObjects (e.g., TextMeshPro or UI Text component)
-        //drawCard1.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[0];
-        //drawCard2.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[1];
-        //drawCard3.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[2];
 
 
         // Assign the new drawCards to the corresponding GameObjects by loading images
