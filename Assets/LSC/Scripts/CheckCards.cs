@@ -49,6 +49,7 @@ public class CheckCards : MonoBehaviour
             {
                 Debug.Log("ÇÃ·¯½Ã - " + tempStats[1]);
                 multiplier *= tempStats[1];
+                tripleChk = true;
             }
         }
 
@@ -106,4 +107,5 @@ public class CheckCards : MonoBehaviour
         }
         return sameCount;
     }
+
 }

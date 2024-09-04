@@ -45,6 +45,8 @@ public class Battle : MonoBehaviour
         currMonsterATK = monsterATKs[floor];
 
         OnButtons();
+        UpdateMonsterHP();
+        UpdatePlayerHP();
     }
 
     void OnButtons()
@@ -76,7 +78,7 @@ public class Battle : MonoBehaviour
         Debug.Log("총 배율 : "+damage);
 
         currMonsterHP -= damage;
-        //monsterHPImage.fillAmount = currMonsterHP / monsterMaxHP;
+        UpdateMonsterHP();
 
         if (currMonsterHP <= 0)
         {
@@ -88,8 +90,20 @@ public class Battle : MonoBehaviour
         else
         {
             playerStats.ChangeHP(-currMonsterATK);
+            UpdatePlayerHP();
         }
-        Debug.Log("현재 몬스터 체력 : " + currMonsterHP + "/"+monsterMaxHP+", 플레이어 체력 : "+playerStats.currHP);
+    }
+
+    public void UpdateMonsterHP()
+    {
+        monsterHPImage.fillAmount = currMonsterHP / monsterMaxHP;
+        monsterHPText.text = currMonsterHP.ToString() + '/' + monsterMaxHP;
+    }
+
+    public void UpdatePlayerHP()
+    {
+        playerHPImage.fillAmount = playerStats.currHP/playerStats.maxHP;
+        playerHPText.text = playerStats.currHP.ToString() + '/' + playerStats.maxHP;
     }
 
     public void MonsterDead()
@@ -105,5 +119,7 @@ public class Battle : MonoBehaviour
             battleScene.SetActive(false);
             shopManager.OnShopUI();
         }
+
+        UpdateMonsterHP();
     }
 }

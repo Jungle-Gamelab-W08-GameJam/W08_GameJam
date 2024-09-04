@@ -177,7 +177,7 @@ public class ShopManager : MonoBehaviour
 
     public void CloseShopUI()
     {
-        shopUI.SetActive(true);
-        battleUI.SetActive(false);
+        shopUI.SetActive(false);
+        battleUI.SetActive(true);
     }
 }
