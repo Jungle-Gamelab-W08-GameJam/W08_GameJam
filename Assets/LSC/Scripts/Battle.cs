@@ -9,6 +9,7 @@ using TMPro;
 
 public class Battle : MonoBehaviour
 {
+    public ShopManager shopManager;
     public PlayerStats playerStats;
     public DrawController drawController;
     public CheckCards checkCards;
@@ -33,6 +34,8 @@ public class Battle : MonoBehaviour
     private int monsterMaxHP;
     [SerializeField]
     private int currMonsterATK;
+    [SerializeField]
+    private GameObject battleScene;
 
     void Start()
     {
@@ -55,6 +58,9 @@ public class Battle : MonoBehaviour
     public void OnBattle()
     {
         string[] tempCards = KingManager.Instance.DrawCards;
+        foreach (string card in tempCards) { 
+            Debug.Log(card);
+        }
         char[,] tempArray = new char[3, 3];
 
         // string 배열을 char 배열로 변환
@@ -70,7 +76,7 @@ public class Battle : MonoBehaviour
         Debug.Log("총 배율 : "+damage);
 
         currMonsterHP -= damage;
-        monsterHPImage.fillAmount = currMonsterHP / monsterMaxHP;
+        //monsterHPImage.fillAmount = currMonsterHP / monsterMaxHP;
 
         if (currMonsterHP <= 0)
         {
@@ -93,5 +99,11 @@ public class Battle : MonoBehaviour
         currMonsterHP = monsterMaxHP;
         currMonsterATK = monsterATKs[floor];
         drawController.ClickFightButton();
+
+        if(floor % 5 == 0)
+        {
+            battleScene.SetActive(false);
+            shopManager.OnShopUI();
+        }
     }
 }

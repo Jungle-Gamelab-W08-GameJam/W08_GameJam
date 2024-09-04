@@ -44,6 +44,13 @@ public class ShopManager : MonoBehaviour
     public int bonusLeft;
     public bool onBonus;
 
+    [SerializeField]
+    private Button closeButton;
+    [SerializeField]
+    private GameObject shopUI;
+    [SerializeField]
+    private GameObject battleUI;
+
     void Start()
     {
         playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
@@ -163,5 +170,14 @@ public class ShopManager : MonoBehaviour
         bonusText.text = " ";
     }
 
-    
+    public void OnShopUI()
+    {
+        shopUI.SetActive(true);
+    }
+
+    public void CloseShopUI()
+    {
+        shopUI.SetActive(true);
+        battleUI.SetActive(false);
+    }
 }

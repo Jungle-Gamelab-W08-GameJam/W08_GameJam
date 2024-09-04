@@ -35,7 +35,7 @@ public class CheckCards : MonoBehaviour
         // Flush
         if (AllSame(array, 1))
         {
-            if (ContainsAll(array, 1))
+            if (ContainsAll(array, 2))
             {
                 Debug.Log("스트레이트 - " + tempStats[2]);
                 multiplier *= tempStats[2];
