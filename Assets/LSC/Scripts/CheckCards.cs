@@ -1,51 +1,60 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 
 public class CheckCards : MonoBehaviour
 {
-    float CheckCombination(char[,] array)
+    PlayerStats playerStats;
+
+    private void Start()
     {
+        playerStats = GameObject.Find("Player").GetComponent<PlayerStats>();
+    }
+
+    public float CheckCard(char[,] array)
+    {
+        List<float> tempStats = playerStats.GetStats();
         float multiplier = 1.0f;
 
         // Arcane
         if (ContainsAll(array, 0))
         {
-            Debug.Log("아케인 - 2.5배");
-            multiplier *= 2.5f;
+            Debug.Log("아케인 - "+tempStats[4]);
+            multiplier *= tempStats[4];
         }
 
         // Attribute
         if (AllSame(array, 0))
         {
-            Debug.Log("속성 조합 - 3배");
-            multiplier *= 3f;
+            Debug.Log("속성 조합 - "+ tempStats[5]);
+            multiplier *= tempStats[5];
         }
 
         // Staraight
         if (ContainsAll(array, 1))
         {
-            Debug.Log("스트레이트 - 5배");
-            multiplier *= 5f;
+            Debug.Log("스트레이트 - "+ tempStats[2]);
+            multiplier *= tempStats[2];
         }
 
         // Flush
         if (AllSame(array, 1))
         {
-            Debug.Log("플러시 - 3배");
-            multiplier *= 3f;
+            Debug.Log("플러시 - "+ tempStats[2]);
+            multiplier *= tempStats[2];
         }
 
         // Double, Triple
         int count = CountSame(array, 2);
         if (count == 2)
         {
-            Debug.Log("더블 - 2배");
-            multiplier *= 2f;
+            Debug.Log("더블 - "+tempStats[0]);
+            multiplier *= tempStats[0];
         }
         else if (count == 3)
         {
-            Debug.Log("트리플 - 7배");
-            multiplier *= 7f;
+            Debug.Log("트리플 - "+ tempStats[3]);
+            multiplier *= tempStats[3];
         }
 
         return multiplier;
