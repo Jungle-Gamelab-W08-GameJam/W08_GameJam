@@ -68,13 +68,21 @@ public class DrawController : MonoBehaviour
                 drawCards[i] = null;
             }
 
-            // Randomly select and remove elements for drawCards
+            // Randomly select and remove elements for drawCards, ensuring no duplicates in drawCards
             for (int i = 0; i < drawCards.Length; i++)
             {
-                if (stringList.Count > 0)
+                bool isUnique = false;
+                while (!isUnique)
                 {
                     int randomIndex = Random.Range(0, stringList.Count);
-                    drawCards[i] = stringList[randomIndex];
+                    string selectedCard = stringList[randomIndex];
+
+                    // 중복이 없으면 카드 추가
+                    if (!System.Array.Exists(drawCards, card => card == selectedCard))
+                    {
+                        drawCards[i] = selectedCard;
+                        isUnique = true; // 중복이 아니므로 while 루프 탈출
+                    }
                 }
             }
 
