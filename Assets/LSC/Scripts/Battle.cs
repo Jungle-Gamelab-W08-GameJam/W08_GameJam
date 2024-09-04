@@ -75,18 +75,19 @@ public class Battle : MonoBehaviour
         float damage = checkCards.CheckCard(tempArray);
         Debug.Log("총 배율 : "+damage);
 
-        currMonsterHP -= damage;
+        
         //monsterHPImage.fillAmount = currMonsterHP / monsterMaxHP;
 
-        if (currMonsterHP <= 0)
+        if (currMonsterHP <= damage)
         {
             Debug.Log("몬스터 사망");
+            playerStats.GetGold(Mathf.Abs((int)(damage - currMonsterHP)));
             currMonsterHP = 0;
-            playerStats.GetGold(Mathf.Abs((int)currMonsterHP));
             MonsterDead();
         }
         else
         {
+            currMonsterHP -= damage;
             playerStats.ChangeHP(-currMonsterATK);
         }
         Debug.Log("현재 몬스터 체력 : " + currMonsterHP + "/"+monsterMaxHP+", 플레이어 체력 : "+playerStats.currHP);

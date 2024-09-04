@@ -94,8 +94,10 @@ public class ShopManager : MonoBehaviour
         if (playerStats.gold >= hpCost)
         {
             playerStats.gold -= hpCost;
-            playerStats.UpdateGoldText();
             playerStats.currHP = playerStats.maxHP;
+
+            playerStats.UpdateGoldText();
+            playerStats.UpdateHPText();
         }
         else
         {
@@ -177,7 +179,12 @@ public class ShopManager : MonoBehaviour
 
     public void CloseShopUI()
     {
-        shopUI.SetActive(true);
-        battleUI.SetActive(false);
+        SetCost();
+        SetProb();
+        ExitFever();
+        ExitBonus();
+        playerStats.UpdateMulText(99);
+        shopUI.SetActive(false);
+        battleUI.SetActive(true);
     }
 }
