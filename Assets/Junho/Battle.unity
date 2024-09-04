@@ -3239,7 +3239,6 @@ MonoBehaviour:
   HandCard1: {fileID: 1396544125}
   HandCard2: {fileID: 1497344266}
   HandCard3: {fileID: 1584704438}
-  MainCanvas: {fileID: 433465920}
 --- !u!4 &1089359403
 Transform:
   m_ObjectHideFlags: 0
@@ -5784,6 +5783,10 @@ PrefabInstance:
       propertyPath: currHP
       value: 100
       objectReference: {fileID: 0}
+    - target: {fileID: 3160633115797082867, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
+      propertyPath: hpText
+      value: 
+      objectReference: {fileID: 745422895}
     - target: {fileID: 3160633115797082867, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
       propertyPath: mulText
       value: 
