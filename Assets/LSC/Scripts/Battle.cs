@@ -65,7 +65,6 @@ public class Battle : MonoBehaviour
         }
         char[,] tempArray = new char[3, 3];
 
-        // string �迭�� char �迭�� ��ȯ
         for (int i = 0; i < tempCards.Length; i++)
         {
             for (int j = 0; j < tempCards[i].Length; j++)
@@ -75,7 +74,7 @@ public class Battle : MonoBehaviour
         }
 
         float damage = checkCards.CheckCard(tempArray);
-        Debug.Log("�� ���� : "+damage);
+        Debug.Log("Damage : "+damage);
 
         
         //monsterHPImage.fillAmount = currMonsterHP / monsterMaxHP;
@@ -84,7 +83,6 @@ public class Battle : MonoBehaviour
         {
             float tempHP = currMonsterHP;
             currMonsterHP = 0;
-            Debug.Log("몬스터 사망");
             playerStats.GetGold(Mathf.Abs((int)tempHP));
             MonsterDead();
         }
