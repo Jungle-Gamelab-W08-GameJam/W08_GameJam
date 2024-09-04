@@ -15,7 +15,6 @@ public class CheckCards : MonoBehaviour
     {
         List<float> tempStats = playerStats.GetStats();
         float multiplier = 1.0f;
-        int count = CountSame(array, 2);
         bool tripleChk = false;
 
         // Arcane
@@ -39,7 +38,7 @@ public class CheckCards : MonoBehaviour
             {
                 Debug.Log("스트레이트 - " + tempStats[2]);
                 multiplier *= tempStats[2];
-            }else if (count == 3)
+            }else if (AllSame(array, 2))
             {
                 Debug.Log("트리플 - " + tempStats[3]);
                 multiplier *= tempStats[3];
@@ -53,7 +52,7 @@ public class CheckCards : MonoBehaviour
             }
         }
 
-        if (count == 2 && !tripleChk)
+        if (!tripleChk && CheckDouble(array))
         {
             Debug.Log("더블 - "+tempStats[0]);
             multiplier *= tempStats[0];
@@ -90,22 +89,8 @@ public class CheckCards : MonoBehaviour
         return array[0, index] == array[1, index] && array[1, index] == array[2, index];
     }
 
-    int CountSame(char[,] array, int index)
+    bool CheckDouble(char[,] array)
     {
-        int sameCount = 1;
-        if (array[0, index] == array[1, index])
-        {
-            sameCount++;
-        }
-        if (array[0, index] == array[2, index])
-        {
-            sameCount++;
-        }
-        if (array[1, index] == array[2, index] && array[0, index] != array[2, index])
-        {
-            sameCount++;
-        }
-        return sameCount;
+        return (array[0, 1] == array[1, 1] && array[0, 2] == array[1, 2]) || (array[0, 1] == array[2, 1] && array[0, 2] == array[2, 2]) || (array[1, 1] == array[2, 1] && array[1, 2] == array[2, 2]);
     }
-
 }
