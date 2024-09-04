@@ -26,12 +26,13 @@ public class DrawController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        ClickFightButton();
     }
 
     // Update is called once per frame
     void Update()
     {
-        CheckDeckCanvasStatus();
+        //CheckDeckCanvasStatus();
     }
 
     // AAA~CCC 까지의 문자열을 생성하는 함수
@@ -155,6 +156,7 @@ public class DrawController : MonoBehaviour
         Debug.Log(KingManager.Instance.DrawCards);
     }
 
+    /*
     private void CheckDeckCanvasStatus()
     {
         if (DeckCanvas.activeSelf && !previousActiveState)
@@ -177,10 +179,11 @@ public class DrawController : MonoBehaviour
             previousActiveState = false;
         }
     }
+    */
 
     public void ClickFightButton()
     {
-        FightButton.SetActive(false);
+        //FightButton.SetActive(false);
 
         stringList = new List<string>(GenerateArray()); // Initialize the list
 
