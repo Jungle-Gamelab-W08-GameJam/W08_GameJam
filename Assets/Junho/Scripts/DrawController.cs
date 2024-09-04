@@ -59,6 +59,8 @@ public class DrawController : MonoBehaviour
         HandCard1.GetComponent<DragController>().isHandCard = true;
         HandCard2.GetComponent<DragController>().isHandCard = true;
         HandCard3.GetComponent<DragController>().isHandCard = true;
+
+        KingManager.Instance.DrawCards = drawCards;
     }
 
     // Update is called once per frame
@@ -116,6 +118,7 @@ public class DrawController : MonoBehaviour
         drawCard2.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[1];
         drawCard3.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[2];
 
+        KingManager.Instance.DrawCards = drawCards;
 
 
     }
@@ -150,8 +153,6 @@ public class DrawController : MonoBehaviour
             drawCards[card1.cardIndex] = handCards[card2.cardIndex];
             handCards[card2.cardIndex] = tempCard;
         }
-        Debug.Log(drawCards[0] + drawCards[1] + drawCards[2] + handCards[0] + handCards[1] + handCards[2]);
-
 
         // Assign the new drawCards to the corresponding GameObjects (e.g., TextMeshPro or UI Text component)
         drawCard1.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[0];
@@ -161,5 +162,7 @@ public class DrawController : MonoBehaviour
         HandCard2.GetComponentInChildren<TextMeshProUGUI>().text = handCards[1];
         HandCard3.GetComponentInChildren<TextMeshProUGUI>().text = handCards[2];
 
+        KingManager.Instance.DrawCards = drawCards;
+        Debug.Log(KingManager.Instance.DrawCards);
     }
 }

@@ -4,15 +4,27 @@ using UnityEngine;
 
 public class KingManager : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public static KingManager Instance { get; private set; }
+
+    private string[] drawCards;
+
+    public string[] DrawCards
     {
-        
+        get { return drawCards; }
+        set { drawCards = value; }
     }
 
-    // Update is called once per frame
-    void Update()
+    void Awake()
     {
-        
+        // singleton pattern. not essential!!!!!
+        if (Instance == null)
+        {
+            Instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }
