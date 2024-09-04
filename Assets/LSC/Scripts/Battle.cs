@@ -74,22 +74,20 @@ public class Battle : MonoBehaviour
         }
 
         float damage = checkCards.CheckCard(tempArray);
+        currMonsterHP -= damage;
         Debug.Log("Damage : "+damage);
 
-        
-        //monsterHPImage.fillAmount = currMonsterHP / monsterMaxHP;
-		UpdateMonsterHP();
-        if (currMonsterHP <= damage)
+        if (currMonsterHP <= 0)
         {
             float tempHP = currMonsterHP;
-            currMonsterHP = 0;
             playerStats.GetGold(Mathf.Abs((int)tempHP));
+            currMonsterHP = 0;
             MonsterDead();
         }
         else
         {
-            currMonsterHP -= damage;
             playerStats.ChangeHP(-currMonsterATK);
+            UpdateMonsterHP();
             UpdatePlayerHP();
         }
     }
