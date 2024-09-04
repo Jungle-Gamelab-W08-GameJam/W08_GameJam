@@ -80,6 +80,11 @@ public class ShopManager : MonoBehaviour
                 bonusLeft--;
                 if (bonusLeft==0) ExitBonus();
             }
+            else
+            {
+                scrollCost[stat] += 1;
+                SetCost();
+            }
 
             playerStats.ChangeStat(stat);
         }
@@ -91,18 +96,21 @@ public class ShopManager : MonoBehaviour
 
     public void OnHPButon()
     {
-        if (playerStats.gold >= hpCost)
-        {
-            playerStats.gold -= hpCost;
-            playerStats.currHP = playerStats.maxHP;
+        //if (playerStats.gold >= hpCost)
+        //{
+        //    playerStats.gold -= hpCost;
+        //    playerStats.currHP = playerStats.maxHP;
 
-            playerStats.UpdateGoldText();
-            playerStats.UpdateHPText();
-        }
-        else
-        {
-            Debug.Log("Not enough gold!");
-        }
+        //    playerStats.UpdateGoldText();
+        //    playerStats.UpdateHPText();
+        //}
+        //else
+        //{
+        //    Debug.Log("Not enough gold!");
+        //}
+
+        playerStats.currHP = playerStats.maxHP;
+        playerStats.UpdateGoldText();
     }
 
     private void SetCost()
@@ -183,7 +191,8 @@ public class ShopManager : MonoBehaviour
         SetProb();
         ExitFever();
         ExitBonus();
-        playerStats.UpdateMulText(99);
+        OnHPButon();
+        playerStats.Clear();
         shopUI.SetActive(false);
         battleUI.SetActive(true);
     }

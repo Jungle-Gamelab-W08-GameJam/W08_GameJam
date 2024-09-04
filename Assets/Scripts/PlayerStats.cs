@@ -1,3 +1,4 @@
+using DG.Tweening;
 using System.Collections;
 using System.Collections.Generic;
 using System.Drawing;
@@ -33,6 +34,10 @@ public class PlayerStats : MonoBehaviour
     private TextMeshProUGUI mulText;
     [SerializeField]
     private TextMeshProUGUI hpText;
+    [SerializeField]
+    private TextMeshProUGUI statResultText;
+    [SerializeField]
+    private Transform highlight;
 
     private ShopManager shopManager;
 
@@ -40,10 +45,8 @@ public class PlayerStats : MonoBehaviour
     {	
 		currHP = maxHP;
         shopManager = GameObject.FindWithTag("Shop").GetComponent<ShopManager>();
-        UpdateStatText(99);
-        UpdateGoldText();
-        UpdateMulText(99);
-        UpdateHPText();
+
+        Clear();
     }
 
     public void GetButton(GameObject obj)
@@ -55,9 +58,10 @@ public class PlayerStats : MonoBehaviour
     {
         float increaseRate = shopManager.increaseRate * shopManager.feverIncreseRate;
         List<float> successRate = shopManager.successRate.ConvertAll(x => x * shopManager.feverSuccessRate);
-
         
         resultText.text = "";
+        highlight.position = new Vector3(highlight.transform.position.x, 218, highlight.transform.position.z);
+        statResultText.text = "";
 
         StartCoroutine(TryUpgrade(code, increaseRate, successRate));
     }
@@ -68,6 +72,9 @@ public class PlayerStats : MonoBehaviour
         UpdateMulText(99);
         UpdateStatText(99);
         StringBuilder sb = new StringBuilder();
+        
+        string statBefore = stats[code].ToString("F2");
+        float time = 0.1f;
         for (int i = 0; i < 10; i++)
         {
             StringBuilder temp = new StringBuilder();
@@ -82,6 +89,9 @@ public class PlayerStats : MonoBehaviour
                 else stats[code] *= (Mathf.Pow(1 + (increaseRate / 100), Mathf.Pow(2, i - 1)));
                 UpdateMulText(i);
 
+                time *= 1.5f;
+                highlight.DOMoveY(highlight.position.y + 55, time).SetEase(Ease.InOutQuad);
+
                 if(i >= 4) // fever enter
                 {
                     if (!shopManager.onFever) shopManager.EnterFever();
@@ -91,13 +101,14 @@ public class PlayerStats : MonoBehaviour
                 {
                     shopManager.EnterBonus();
                 }
-
-                yield return new WaitForSeconds(0.2f);
+                
+                yield return new WaitForSeconds(time);
             }
             else
             {
                 sb.Insert(0, "<color=\"red\">Fail...</color>\n");
                 resultText.text = sb.ToString();
+                statResultText.text = statBefore + " >> " + stats[code].ToString("F2");
                 UpdateStatText(code);
                 break;
             }
@@ -114,7 +125,7 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    private void UpdateStatText(int code)
+    public void UpdateStatText(int code)
     {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < stats.Count; i++)
@@ -154,6 +165,18 @@ public class PlayerStats : MonoBehaviour
         hpText.text += currHP.ToString();
         hpText.text += " / ";
         hpText.text += maxHP.ToString();
+    }
+
+    public void Clear()
+    {
+        UpdateStatText(99);
+        UpdateGoldText();
+        UpdateMulText(99);
+        UpdateHPText();
+        highlight.position = new Vector3(highlight.transform.position.x, 218, highlight.transform.position.z);
+        upgradeText.text = " ";
+        resultText.text = " ";
+        statResultText.text = " ";
     }
 
     public List<float> GetStats()
