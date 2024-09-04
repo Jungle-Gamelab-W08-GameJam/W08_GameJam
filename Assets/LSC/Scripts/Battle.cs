@@ -59,23 +59,9 @@ public class Battle : MonoBehaviour
 
     public void OnBattle()
     {
-        string[] tempCards = KingManager.Instance.DrawCards;
-        foreach (string card in tempCards) { 
-            Debug.Log(card);
-        }
-        char[,] tempArray = new char[3, 3];
-
-        for (int i = 0; i < tempCards.Length; i++)
-        {
-            for (int j = 0; j < tempCards[i].Length; j++)
-            {
-                tempArray[i, j] = tempCards[i][j];
-            }
-        }
-
-        float damage = checkCards.CheckCard(tempArray);
+        float damage = checkCards.damage;
         currMonsterHP -= damage;
-        Debug.Log("Damage : "+damage);
+        Debug.Log(damage);
 
         if (currMonsterHP <= 0)
         {
@@ -89,6 +75,11 @@ public class Battle : MonoBehaviour
             playerStats.ChangeHP(-currMonsterATK);
             UpdateMonsterHP();
             UpdatePlayerHP();
+        }
+
+        for(int i = 0; i<6; i++)
+        {
+            checkCards.check[i] = false;
         }
     }
 

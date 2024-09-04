@@ -1,64 +1,121 @@
 using System;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
 
 public class CheckCards : MonoBehaviour
 {
     PlayerStats playerStats;
+    public bool[] check = new bool[6] { false, false, false, false, false, false };
+
+    public Image[] images = new Image[6];
+    public TMP_Text damageText;
+    public float damage;
+
 
     private void Start()
     {
         playerStats = GameObject.Find("Player").GetComponent<PlayerStats>();
     }
 
-    public float CheckCard(char[,] array)
+    private void Update()
+    {
+        string[] tempCards = KingManager.Instance.DrawCards;
+        char[,] tempArray = new char[3, 3];
+
+        for (int i = 0; i < tempCards.Length; i++)
+        {
+            for (int j = 0; j < tempCards[i].Length; j++)
+            {
+                tempArray[i, j] = tempCards[i][j];
+            }
+        }
+
+        CheckCard(tempArray);
+    }
+
+    public void CheckCard(char[,] array)
     {
         List<float> tempStats = playerStats.GetStats();
         float multiplier = 1.0f;
-        bool tripleChk = false;
 
         // Arcane
         if (ContainsAll(array, 0))
         {
-            Debug.Log("아케인 - "+tempStats[4]);
+            check[1] = true;
             multiplier *= tempStats[4];
+        }
+        else
+        {
+            check[1] = false;
         }
 
         // Attribute
         if (AllSame(array, 0))
         {
-            Debug.Log("속성 조합 - "+ tempStats[5]);
+            check[2] = true;    
             multiplier *= tempStats[5];
+        }
+        else
+        {
+            check[2] = false;
         }
 
         // Flush
         if (AllSame(array, 1))
         {
+            // Straight
             if (ContainsAll(array, 2))
             {
-                Debug.Log("스트레이트 - " + tempStats[2]);
+                check[4] = true;
                 multiplier *= tempStats[2];
-            }else if (AllSame(array, 2))
+            }
+            // Triple
+            else if (AllSame(array, 2))
             {
-                Debug.Log("트리플 - " + tempStats[3]);
                 multiplier *= tempStats[3];
-                tripleChk = true;
+                check[5] = true;
             }
             else
             {
-                Debug.Log("플러시 - " + tempStats[1]);
+                check[4] = false;
+                check[5] = false;
                 multiplier *= tempStats[1];
-                tripleChk = true;
+                check[3] = true;
             }
         }
-
-        if (!tripleChk && CheckDouble(array))
+        else
         {
-            Debug.Log("더블 - "+tempStats[0]);
-            multiplier *= tempStats[0];
+            check[3] = false;
         }
 
-        return multiplier;
+        if (!check[3] && CheckDouble(array))
+        {
+            check[0] = true;
+            multiplier *= tempStats[0];
+        }
+        else
+        {
+            check[0] = false;
+        }
+
+        for(int i = 0; i< 6; i++)
+        {
+            Color color = images[i].color;
+            if (check[i])
+            {
+                color.a = 1f;        
+            }
+            else
+            {
+                color.a = 0.35f;
+            }
+            images[i].color = color;
+        }
+
+        damage = multiplier;
+        damageText.text ="현재 데미지\n"+multiplier.ToString("F2");
     }
 
     bool ContainsAll(char[,] array, int index)

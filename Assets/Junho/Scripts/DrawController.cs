@@ -20,7 +20,7 @@ public class DrawController : MonoBehaviour
     private string[] drawCards = new string[3];
     private string[] handCards = new string[3];
 
-    private bool previousActiveState = false;
+    //private bool previousActiveState = false;
 
 
     // Start is called before the first frame update
