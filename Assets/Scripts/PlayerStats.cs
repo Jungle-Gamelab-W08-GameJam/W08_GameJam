@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Text;
 using TMPro;
 using UnityEditor;
@@ -19,16 +20,17 @@ public class PlayerStats : MonoBehaviour
     private TextMeshProUGUI statText;
     [SerializeField]
     private TextMeshProUGUI goldText;
-
+    [SerializeField]
     private Transform button;
     
     public int gold;
-    public int hp;
 
     [SerializeField]
     private TextMeshProUGUI upgradeText;
     [SerializeField]
     private TextMeshProUGUI resultText;
+    [SerializeField]
+    private TextMeshProUGUI mulText;
 
     private ShopManager shopManager;
 
@@ -36,8 +38,9 @@ public class PlayerStats : MonoBehaviour
     {	
 		currHP = maxHP;
         shopManager = GameObject.FindWithTag("Shop").GetComponent<ShopManager>();
-        UpdateStatText();
+        UpdateStatText(99);
         UpdateGoldText();
+        UpdateMulText(99);
     }
 
     public void GetButton(GameObject obj)
@@ -59,9 +62,9 @@ public class PlayerStats : MonoBehaviour
     IEnumerator TryUpgrade(int code, float increaseRate, List<float> successRate)
     {
         ButtonDisable(false);
-
+        UpdateMulText(99);
+        UpdateStatText(99);
         StringBuilder sb = new StringBuilder();
-
         for (int i = 0; i < 10; i++)
         {
             StringBuilder temp = new StringBuilder();
@@ -74,7 +77,7 @@ public class PlayerStats : MonoBehaviour
                 resultText.text = sb.ToString();
                 if (i == 0) stats[code] *= 1 + (increaseRate / 100);
                 else stats[code] *= (Mathf.Pow(1 + (increaseRate / 100), Mathf.Pow(2, i - 1)));
-                UpdateStatText();
+                UpdateMulText(i);
 
                 if(i >= 4) // fever enter
                 {
@@ -90,12 +93,12 @@ public class PlayerStats : MonoBehaviour
             }
             else
             {
-                sb.AppendLine("<color=\"red\">Fail...</color>");
+                sb.Insert(0, "<color=\"red\">Fail...</color>\n");
                 resultText.text = sb.ToString();
+                UpdateStatText(code);
                 break;
             }
         }
-
         ButtonDisable(true);
     }
 
@@ -108,12 +111,16 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
-    private void UpdateStatText()
+    private void UpdateStatText(int code)
     {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < stats.Count; i++)
         {
-            sb.Append(statName[i]).Append(": ").Append(stats[i].ToString("F2")).Append("\n");
+            if (i == code)
+            {
+                sb.Append("<color=\"green\">").Append(statName[i]).Append(": ").Append(stats[i].ToString("F2")).Append("x</color>\n");
+            }
+            else sb.Append(statName[i]).Append(": ").Append(stats[i].ToString("F2")).Append("x\n");
         }
         statText.text = sb.ToString();
     }
@@ -122,6 +129,20 @@ public class PlayerStats : MonoBehaviour
     {
         goldText.text = gold.ToString();
         goldText.text += " G";
+    }
+
+    public void UpdateMulText(int code)
+    {
+        int[] list = {16213, 1177, 257, 89, 37, 17, 8, 4, 2, 1};
+        mulText.text = "";
+        for (int i = 0;i < 10;i++)
+        {
+            if (i == 9 - code)
+            {
+                mulText.text += $"<color=\"green\">{list[i]*shopManager.feverIncreseRate} %</color>\n";
+            }
+            else mulText.text += $"{list[i] * shopManager.feverIncreseRate} %\n";
+        }
     }
 
     public List<float> GetStats()
