@@ -65,7 +65,7 @@ public class Battle : MonoBehaviour
         }
         char[,] tempArray = new char[3, 3];
 
-        // string ¹è¿­À» char ¹è¿­·Î º¯È¯
+        // string ï¿½è¿­ï¿½ï¿½ char ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½È¯
         for (int i = 0; i < tempCards.Length; i++)
         {
             for (int j = 0; j < tempCards[i].Length; j++)
@@ -75,21 +75,22 @@ public class Battle : MonoBehaviour
         }
 
         float damage = checkCards.CheckCard(tempArray);
-        Debug.Log("ÃÑ ¹èÀ² : "+damage);
+        Debug.Log("ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ : "+damage);
 
-        currMonsterHP -= damage;
-        UpdateMonsterHP();
-
-        if (currMonsterHP <= 0)
+        
+        //monsterHPImage.fillAmount = currMonsterHP / monsterMaxHP;
+		UpdateMonsterHP();
+        if (currMonsterHP <= damage)
         {
             float tempHP = currMonsterHP;
             currMonsterHP = 0;
-            Debug.Log("¸ó½ºÅÍ »ç¸Á");
+            Debug.Log("ëª¬ìŠ¤í„° ì‚¬ë§");
             playerStats.GetGold(Mathf.Abs((int)tempHP));
             MonsterDead();
         }
         else
         {
+            currMonsterHP -= damage;
             playerStats.ChangeHP(-currMonsterATK);
             UpdatePlayerHP();
         }

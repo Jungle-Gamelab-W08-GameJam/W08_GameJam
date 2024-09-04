@@ -31,6 +31,8 @@ public class PlayerStats : MonoBehaviour
     private TextMeshProUGUI resultText;
     [SerializeField]
     private TextMeshProUGUI mulText;
+    [SerializeField]
+    private TextMeshProUGUI hpText;
 
     private ShopManager shopManager;
 
@@ -41,6 +43,7 @@ public class PlayerStats : MonoBehaviour
         UpdateStatText(99);
         UpdateGoldText();
         UpdateMulText(99);
+        UpdateHPText();
     }
 
     public void GetButton(GameObject obj)
@@ -145,6 +148,14 @@ public class PlayerStats : MonoBehaviour
         }
     }
 
+    public void UpdateHPText()
+    {
+        hpText.text = "HP: ";
+        hpText.text += currHP.ToString();
+        hpText.text += " / ";
+        hpText.text += maxHP.ToString();
+    }
+
     public List<float> GetStats()
     {
         return stats;
@@ -158,6 +169,7 @@ public class PlayerStats : MonoBehaviour
     public void ChangeHP(int changeHP)
     {
         currHP = Mathf.Min(currHP + changeHP, maxHP);
+        UpdateHPText();
         if (currHP <= 0) {
             Debug.Log("Game Over");
             // gameOver
