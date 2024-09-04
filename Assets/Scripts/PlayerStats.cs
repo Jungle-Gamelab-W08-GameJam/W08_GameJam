@@ -8,6 +8,7 @@ using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
 {
+    private int Atk;
     [SerializeField]
     private List<string> statName = new List<string>();
     [SerializeField]
@@ -74,5 +75,10 @@ public class PlayerStats : MonoBehaviour
     {
         goldText.text = gold.ToString();
         goldText.text += " G";
+    }
+
+    public List<float> GetStats()
+    {
+        return stats;
     }
 }
