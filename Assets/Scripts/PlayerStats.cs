@@ -24,6 +24,7 @@ public class PlayerStats : MonoBehaviour
 
     void Start()
     {
+        Atk = 5;
         UpdateStatText();
         UpdateGoldText();
     }
@@ -80,5 +81,10 @@ public class PlayerStats : MonoBehaviour
     public List<float> GetStats()
     {
         return stats;
+    }
+
+    public int GetATK()
+    {
+        return Atk;
     }
 }
