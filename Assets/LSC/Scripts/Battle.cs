@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class Battle : MonoBehaviour
 {
     public PlayerStats playerStats;
+    public DrawController drawController;
     public CheckCards checkCards;
     public Button battleButton;
 
@@ -42,6 +43,10 @@ public class Battle : MonoBehaviour
         battleButton.onClick.RemoveAllListeners();
 
         battleButton.onClick.AddListener(OnBattle);
+
+        battleButton.onClick.AddListener(drawController.DecisionDraw);
+
+
     }
 
     public void OnBattle()
@@ -85,5 +90,6 @@ public class Battle : MonoBehaviour
         monsterMaxHP = monsterHPs[floor];
         currMonsterHP = monsterMaxHP;
         currMonsterATK = monsterATKs[floor];
+        drawController.ClickFightButton();
     }
 }

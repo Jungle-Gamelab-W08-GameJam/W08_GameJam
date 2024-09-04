@@ -40,8 +40,8 @@ public class CheckCards : MonoBehaviour
         // Flush
         if (AllSame(array, 1))
         {
-            Debug.Log("플러시 - "+ tempStats[2]);
-            multiplier *= tempStats[2];
+            Debug.Log("플러시 - "+ tempStats[1]);
+            multiplier *= tempStats[1];
         }
 
         // Double, Triple
