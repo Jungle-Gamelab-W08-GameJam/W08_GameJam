@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 public class DrawController : MonoBehaviour
 {
     public GameObject DeckCanvas;
@@ -13,6 +14,7 @@ public class DrawController : MonoBehaviour
     public GameObject HandCard1;
     public GameObject HandCard2;
     public GameObject HandCard3;
+
 
     private List<string> stringList; // Changed to List for easier manipulation
     private string[] drawCards = new string[3];
@@ -77,9 +79,15 @@ public class DrawController : MonoBehaviour
         }
 
         // Assign the new drawCards to the corresponding GameObjects (e.g., TextMeshPro or UI Text component)
-        drawCard1.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[0];
-        drawCard2.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[1];
-        drawCard3.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[2];
+        //drawCard1.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[0];
+        //drawCard2.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[1];
+        //drawCard3.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[2];
+
+
+        // Assign the new drawCards to the corresponding GameObjects by loading images
+        drawCard1.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{drawCards[0]}");
+        drawCard2.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{drawCards[1]}");
+        drawCard3.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{drawCards[2]}");
 
         KingManager.Instance.DrawCards = drawCards;
 
@@ -118,12 +126,21 @@ public class DrawController : MonoBehaviour
         }
 
         // Assign the new drawCards to the corresponding GameObjects (e.g., TextMeshPro or UI Text component)
-        drawCard1.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[0];
-        drawCard2.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[1];
-        drawCard3.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[2];
-        HandCard1.GetComponentInChildren<TextMeshProUGUI>().text = handCards[0];
-        HandCard2.GetComponentInChildren<TextMeshProUGUI>().text = handCards[1];
-        HandCard3.GetComponentInChildren<TextMeshProUGUI>().text = handCards[2];
+        //drawCard1.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[0];
+        //drawCard2.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[1];
+        //drawCard3.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[2];
+        //HandCard1.GetComponentInChildren<TextMeshProUGUI>().text = handCards[0];
+        //HandCard2.GetComponentInChildren<TextMeshProUGUI>().text = handCards[1];
+        //HandCard3.GetComponentInChildren<TextMeshProUGUI>().text = handCards[2];
+
+
+        // Assign the new drawCards to the corresponding GameObjects by loading images
+        HandCard1.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{handCards[0]}");
+        HandCard2.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{handCards[1]}");
+        HandCard3.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{handCards[2]}");
+        drawCard1.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{drawCards[0]}");
+        drawCard2.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{drawCards[1]}");
+        drawCard3.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{drawCards[2]}");
 
         KingManager.Instance.DrawCards = drawCards;
         Debug.Log(KingManager.Instance.DrawCards);
@@ -167,15 +184,20 @@ public class DrawController : MonoBehaviour
         }
 
         // Assign drawCards to the corresponding GameObjects (e.g., TextMeshPro or UI Text component)
-        drawCard1.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[0];
-        drawCard2.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[1];
-        drawCard3.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[2];
+        //drawCard1.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[0];
+        //drawCard2.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[1];
+        //drawCard3.GetComponentInChildren<TextMeshProUGUI>().text = drawCards[2];
         drawCard1.GetComponent<DragController>().cardIndex = 0;
         drawCard2.GetComponent<DragController>().cardIndex = 1;
         drawCard3.GetComponent<DragController>().cardIndex = 2;
         drawCard1.GetComponent<DragController>().isHandCard = false;
         drawCard2.GetComponent<DragController>().isHandCard = false;
         drawCard3.GetComponent<DragController>().isHandCard = false;
+
+        // Assign the new drawCards to the corresponding GameObjects by loading images
+        drawCard1.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{drawCards[0]}");
+        drawCard2.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{drawCards[1]}");
+        drawCard3.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{drawCards[2]}");
 
 
         // Randomly select and remove elements for handCards
@@ -187,15 +209,19 @@ public class DrawController : MonoBehaviour
         }
 
         // Assign handCards to the corresponding GameObjects
-        HandCard1.GetComponentInChildren<TextMeshProUGUI>().text = handCards[0];
-        HandCard2.GetComponentInChildren<TextMeshProUGUI>().text = handCards[1];
-        HandCard3.GetComponentInChildren<TextMeshProUGUI>().text = handCards[2];
+        //HandCard1.GetComponentInChildren<TextMeshProUGUI>().text = handCards[0];
+        //HandCard2.GetComponentInChildren<TextMeshProUGUI>().text = handCards[1];
+        //HandCard3.GetComponentInChildren<TextMeshProUGUI>().text = handCards[2];
         HandCard1.GetComponent<DragController>().cardIndex = 0;
         HandCard2.GetComponent<DragController>().cardIndex = 1;
         HandCard3.GetComponent<DragController>().cardIndex = 2;
         HandCard1.GetComponent<DragController>().isHandCard = true;
         HandCard2.GetComponent<DragController>().isHandCard = true;
         HandCard3.GetComponent<DragController>().isHandCard = true;
+
+        HandCard1.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{handCards[0]}");
+        HandCard2.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{handCards[1]}");
+        HandCard3.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{handCards[2]}");
 
         KingManager.Instance.DrawCards = drawCards;
 
