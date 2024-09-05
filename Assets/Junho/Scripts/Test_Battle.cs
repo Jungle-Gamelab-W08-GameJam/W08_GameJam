@@ -7,7 +7,7 @@ using UnityEngine.UI;
 using TMPro;
 
 
-public class Battle : MonoBehaviour
+public class Test_Battle : MonoBehaviour
 {
     public ShopManager shopManager;
     public PlayerStats playerStats;
@@ -120,7 +120,7 @@ public class Battle : MonoBehaviour
 
     IEnumerator HandleBattleAfterAnimation()
     {
-        yield return new WaitForSeconds(1.8f);
+        yield return new WaitForSeconds(4f);
         battleButton.interactable = true;
         float damage = checkCards.damage;
         currMonsterHP -= damage;

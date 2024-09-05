@@ -115,14 +115,7 @@ public class CheckCards : MonoBehaviour
         }
 
         damage = multiplier;
-        if(damage % 1 == 0)
-        {
-            damageText.text = "현재 데미지\n" + multiplier.ToString("F0");
-        }
-        else
-        {
-            damageText.text = "현재 데미지\n" + multiplier.ToString("F1");
-        }
+        damageText.text ="현재 데미지\n"+multiplier.ToString("F2");
     }
 
     bool ContainsAll(char[,] array, int index)

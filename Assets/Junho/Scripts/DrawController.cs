@@ -15,6 +15,8 @@ public class DrawController : MonoBehaviour
     public GameObject HandCard2;
     public GameObject HandCard3;
 
+    private Animator battlePanelAnimator;
+
 
     private List<string> stringList; // Changed to List for easier manipulation
     private string[] drawCards = new string[3];
@@ -27,6 +29,8 @@ public class DrawController : MonoBehaviour
     void Start()
     {
         ClickFightButton();
+        GameObject battlePanel = GameObject.Find("BattlePanel");
+        battlePanelAnimator = battlePanel.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -245,5 +249,15 @@ public class DrawController : MonoBehaviour
         KingManager.Instance.DrawCards = drawCards;
 
         CardPhase.SetActive(true);
+    }
+
+    public void PlayerAttackAnimation()
+    {
+        battlePanelAnimator.SetTrigger("PlayerAttackTrigger");
+    }
+
+    public void EnemyAttackAnimation()
+    {
+        battlePanelAnimator.SetTrigger("EnemyAttackTrigger");
     }
 }
