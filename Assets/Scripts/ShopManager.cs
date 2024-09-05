@@ -80,6 +80,11 @@ public class ShopManager : MonoBehaviour
                 bonusLeft--;
                 if (bonusLeft==0) ExitBonus();
             }
+            else
+            {
+                scrollCost[stat] += 1;
+                SetCost();
+            }
 
             playerStats.ChangeStat(stat);
         }
@@ -174,6 +179,7 @@ public class ShopManager : MonoBehaviour
     public void OnShopUI()
     {
         shopUI.SetActive(true);
+        SetCost();
     }
 
     public void CloseShopUI()
@@ -182,7 +188,8 @@ public class ShopManager : MonoBehaviour
         SetProb();
         ExitFever();
         ExitBonus();
-        playerStats.UpdateMulText(99);
+        OnHPButon();
+        playerStats.Clear();
         shopUI.SetActive(false);
         battleUI.SetActive(true);
     }

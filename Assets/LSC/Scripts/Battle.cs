@@ -1,7 +1,6 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
@@ -69,7 +68,7 @@ public class Battle : MonoBehaviour
 
     void UpdateFloorText()
     {
-        floorText.text = floor + "Ãþ";
+        floorText.text = floor + "ï¿½ï¿½";
     }
 
     void UpdateMonsterAtk()
@@ -86,9 +85,9 @@ public class Battle : MonoBehaviour
         if (currMonsterHP <= 0)
         {
             float tempHP = currMonsterHP;
-            playerStats.GetGold(Mathf.Abs((int)tempHP));
-            int tempGold = Mathf.Abs((int)tempHP);
-            addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString()+"°ñµå È¹µæ!";
+            playerStats.GetGold(Mathf.Abs((int)tempHP * 10));
+            int tempGold = Mathf.Abs((int)tempHP  10);
+            addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString()+"ï¿½ï¿½ï¿½ È¹ï¿½ï¿½!";
             addGoldText.SetActive(true);
             StartCoroutine(FadeOutAndDeactivate());
             currMonsterHP = 0;
@@ -131,6 +130,13 @@ public class Battle : MonoBehaviour
 
         if(floor % 5 == 0)
         {
+            if(floor != 5)
+            {
+                for (int i = 0; i < shopManager.scrollCost.Count; i++)
+                {
+                    shopManager.scrollCost[i] *= 2 * ((floor / 5) - 1);
+                }
+            }
             battleScene.SetActive(false);
             shopManager.OnShopUI();
         }
@@ -142,12 +148,12 @@ public class Battle : MonoBehaviour
 
     IEnumerator FadeOutAndDeactivate()
     {
-        // 3ÃÊ ´ë±â
+        // 3ï¿½ï¿½ ï¿½ï¿½ï¿½
         yield return new WaitForSeconds(delayBeforeFade);
 
         Color originalColor = addGoldText.GetComponent<TMP_Text>().color;
 
-        // 1ÃÊ µ¿¾È ÆäÀÌµå¾Æ¿ô
+        // 1ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ìµï¿½Æ¿ï¿½
         float elapsedTime = 0f;
         while (elapsedTime < fadeDuration)
         {
@@ -157,7 +163,7 @@ public class Battle : MonoBehaviour
             yield return null;
         }
 
-        // ÃÖÁ¾ÀûÀ¸·Î ºñÈ°¼ºÈ­
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È°ï¿½ï¿½È­
         addGoldText.SetActive(false);
         addGoldText.GetComponent<TMP_Text>().color = Color.yellow;
     }
