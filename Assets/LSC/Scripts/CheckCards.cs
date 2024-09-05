@@ -7,7 +7,6 @@ using TMPro;
 public class CheckCards : MonoBehaviour
 {
     PlayerStats playerStats;
-    public bool[] check = new bool[6] { false, false, false, false, false, false };
 
     public Image[] images = new Image[6];
     public TMP_Text damageText;
@@ -37,6 +36,7 @@ public class CheckCards : MonoBehaviour
 
     public void CheckCard(char[,] array)
     {
+        bool[] check = new bool[6] { false, false, false, false, false, false };
         List<float> tempStats = playerStats.GetStats();
         float multiplier = 1.0f;
 
@@ -90,7 +90,7 @@ public class CheckCards : MonoBehaviour
             check[3] = false;
         }
 
-        if (!check[3] && CheckDouble(array))
+        if (!check[3] && !check[5] && CheckDouble(array))
         {
             check[0] = true;
             multiplier *= tempStats[0];

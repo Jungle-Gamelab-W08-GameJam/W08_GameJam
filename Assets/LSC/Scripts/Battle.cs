@@ -36,6 +36,11 @@ public class Battle : MonoBehaviour
     private int currMonsterATK;
     [SerializeField]
     private GameObject battleScene;
+    [SerializeField]
+    private GameObject addGoldText;
+
+    public float fadeDuration = 1.0f;
+    public float delayBeforeFade = 3.0f;
 
     void Start()
     {
@@ -61,12 +66,16 @@ public class Battle : MonoBehaviour
     {
         float damage = checkCards.damage;
         currMonsterHP -= damage;
-        Debug.Log(damage);
+        
 
         if (currMonsterHP <= 0)
         {
             float tempHP = currMonsterHP;
             playerStats.GetGold(Mathf.Abs((int)tempHP));
+            int tempGold = Mathf.Abs((int)tempHP);
+            addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString()+"골드 획득!";
+            addGoldText.SetActive(true);
+            StartCoroutine(FadeOutAndDeactivate());
             currMonsterHP = 0;
             MonsterDead();
         }
@@ -75,11 +84,6 @@ public class Battle : MonoBehaviour
             playerStats.ChangeHP(-currMonsterATK);
             UpdateMonsterHP();
             UpdatePlayerHP();
-        }
-
-        for(int i = 0; i<6; i++)
-        {
-            checkCards.check[i] = false;
         }
     }
 
@@ -110,5 +114,25 @@ public class Battle : MonoBehaviour
         }
 
         UpdateMonsterHP();
+    }
+
+    IEnumerator FadeOutAndDeactivate()
+    {
+        // 3초 대기
+        yield return new WaitForSeconds(delayBeforeFade);
+        Color originalColor = addGoldText.GetComponent<TMP_Text>().color;
+
+        // 1초 동안 페이드아웃
+        float elapsedTime = 0f;
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+            addGoldText.GetComponent<TMP_Text>().color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+            yield return null;
+        }
+
+        // 최종적으로 비활성화
+        addGoldText.SetActive(false);
     }
 }
