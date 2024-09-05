@@ -628,6 +628,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 538950a67ef676c4ab5e0eb246fd248f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  images:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  damageText: {fileID: 0}
+  damage: 0
 --- !u!4 &136509612
 Transform:
   m_ObjectHideFlags: 0
@@ -688,6 +697,11 @@ MonoBehaviour:
   monsterMaxHP: 0
   currMonsterATK: 0
   battleScene: {fileID: 433465920}
+  addGoldText: {fileID: 0}
+  floorText: {fileID: 0}
+  monsterAtkText: {fileID: 0}
+  fadeDuration: 1
+  delayBeforeFade: 3
 --- !u!4 &140111322
 Transform:
   m_ObjectHideFlags: 0
@@ -6447,21 +6461,9 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3160633115797082867, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
-      propertyPath: gold
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 3160633115797082867, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
-      propertyPath: maxHP
-      value: 100
-      objectReference: {fileID: 0}
-    - target: {fileID: 3160633115797082867, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
       propertyPath: button
       value: 
       objectReference: {fileID: 1039804521}
-    - target: {fileID: 3160633115797082867, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
-      propertyPath: currHP
-      value: 100
-      objectReference: {fileID: 0}
     - target: {fileID: 3160633115797082867, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
       propertyPath: hpText
       value: 

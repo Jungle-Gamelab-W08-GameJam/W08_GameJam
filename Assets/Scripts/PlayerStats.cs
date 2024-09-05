@@ -38,6 +38,8 @@ public class PlayerStats : MonoBehaviour
     private TextMeshProUGUI statResultText;
     [SerializeField]
     private Transform highlight;
+    [SerializeField]
+    private Transform image;
 
     private ShopManager shopManager;
 
@@ -45,7 +47,6 @@ public class PlayerStats : MonoBehaviour
     {	
 		currHP = maxHP;
         shopManager = GameObject.FindWithTag("Shop").GetComponent<ShopManager>();
-
         Clear();
     }
 
@@ -60,7 +61,7 @@ public class PlayerStats : MonoBehaviour
         List<float> successRate = shopManager.successRate.ConvertAll(x => x * shopManager.feverSuccessRate);
         
         resultText.text = "";
-        highlight.position = new Vector3(highlight.transform.position.x, 218, highlight.transform.position.z);
+        highlight.position = new Vector3(image.position.x, 218, 0);
         statResultText.text = "";
 
         StartCoroutine(TryUpgrade(code, increaseRate, successRate));
@@ -173,7 +174,7 @@ public class PlayerStats : MonoBehaviour
         UpdateGoldText();
         UpdateMulText(99);
         UpdateHPText();
-        highlight.position = new Vector3(highlight.transform.position.x, 218, highlight.transform.position.z);
+        //highlight.position = new Vector3(image.position.x, 218, 0);
         upgradeText.text = " ";
         resultText.text = " ";
         statResultText.text = " ";

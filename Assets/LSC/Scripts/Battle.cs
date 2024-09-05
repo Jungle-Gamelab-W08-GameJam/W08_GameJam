@@ -68,7 +68,7 @@ public class Battle : MonoBehaviour
 
     void UpdateFloorText()
     {
-        floorText.text = floor + "��";
+        floorText.text = floor + "층";
     }
 
     void UpdateMonsterAtk()
@@ -86,8 +86,8 @@ public class Battle : MonoBehaviour
         {
             float tempHP = currMonsterHP;
             playerStats.GetGold(Mathf.Abs((int)tempHP * 10));
-            int tempGold = Mathf.Abs((int)tempHP  10);
-            addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString()+"��� ȹ��!";
+            int tempGold = Mathf.Abs((int)tempHP * 10);
+            addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString()+"G 획득!";
             addGoldText.SetActive(true);
             StartCoroutine(FadeOutAndDeactivate());
             currMonsterHP = 0;
