@@ -127,6 +127,7 @@ public class Battle : MonoBehaviour
     {
         // 3초 대기
         yield return new WaitForSeconds(delayBeforeFade);
+
         Color originalColor = addGoldText.GetComponent<TMP_Text>().color;
 
         // 1초 동안 페이드아웃
@@ -141,5 +142,6 @@ public class Battle : MonoBehaviour
 
         // 최종적으로 비활성화
         addGoldText.SetActive(false);
+        addGoldText.GetComponent<TMP_Text>().color = Color.yellow;
     }
 }
