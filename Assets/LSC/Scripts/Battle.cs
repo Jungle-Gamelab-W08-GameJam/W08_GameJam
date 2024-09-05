@@ -42,6 +42,8 @@ public class Battle : MonoBehaviour
     public float fadeDuration = 1.0f;
     public float delayBeforeFade = 3.0f;
 
+    private float damage;
+
     void Start()
     {
         floor = 1;
@@ -65,6 +67,7 @@ public class Battle : MonoBehaviour
     public void OnBattle()
     {
         battleButton.interactable = false;
+        damage = checkCards.damage;
         drawController.PlayerAttackAnimation();
         StartCoroutine(HandleBattleAfterAnimation());
     }
@@ -122,16 +125,14 @@ public class Battle : MonoBehaviour
     {
         yield return new WaitForSeconds(1.8f);
         battleButton.interactable = true;
-        float damage = checkCards.damage;
         currMonsterHP -= damage;
-
 
         if (currMonsterHP <= 0)
         {
             float tempHP = currMonsterHP;
-            playerStats.GetGold(Mathf.Abs((int)tempHP));
-            int tempGold = Mathf.Abs((int)tempHP);
-            addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString() + "��� ȹ��!";
+            playerStats.GetGold(Mathf.Abs((int)(tempHP * 10)));
+            int tempGold = Mathf.Abs((int)(tempHP * 10));
+            addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString() + "G 획득!";
             addGoldText.SetActive(true);
             StartCoroutine(FadeOutAndDeactivate());
             currMonsterHP = 0;
