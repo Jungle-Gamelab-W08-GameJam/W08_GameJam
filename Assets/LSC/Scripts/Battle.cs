@@ -1,11 +1,9 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
-using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-
 
 public class Battle : MonoBehaviour
 {
@@ -114,6 +112,13 @@ public class Battle : MonoBehaviour
 
         if(floor % 5 == 0)
         {
+            if(floor != 5)
+            {
+                for (int i = 0; i < shopManager.scrollCost.Count; i++)
+                {
+                    shopManager.scrollCost[i] *= 2 * ((floor / 5) - 1);
+                }
+            }
             battleScene.SetActive(false);
             shopManager.OnShopUI();
         }

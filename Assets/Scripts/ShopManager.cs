@@ -183,6 +183,7 @@ public class ShopManager : MonoBehaviour
     public void OnShopUI()
     {
         shopUI.SetActive(true);
+        SetCost();
     }
 
     public void CloseShopUI()
