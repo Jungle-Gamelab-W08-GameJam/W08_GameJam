@@ -6,6 +6,12 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/Scenes/SampleScene.unity
-    guid: 2cda990e2423bbf4892e6590ba056729
+    path: Assets/Junho/Title.unity
+    guid: e49c2c1208898264f88adb9d2142a82f
+  - enabled: 1
+    path: Assets/Junho/Battle.unity
+    guid: 9a260fb89c35a9042a8af37ffee80f1c
+  - enabled: 1
+    path: Assets/Junho/Dead.unity
+    guid: 5623c9478e552074a8119224b7064373
   m_configObjects: {}

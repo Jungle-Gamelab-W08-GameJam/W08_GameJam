@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class TitleController : MonoBehaviour
+public class DeadController : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
@@ -15,16 +15,12 @@ public class TitleController : MonoBehaviour
 
     }
 
-    public void StarGameButton()
+    public void RestartGameButton()
     {
-        SceneManager.LoadScene(1);
+        SceneManager.LoadScene(0);
 
     }
 
-    public void ExitGameButton()
-    {
-        Application.Quit();
-    }
 }
 
 
