@@ -90,7 +90,14 @@ public class Battle : MonoBehaviour
     public void UpdateMonsterHP()
     {
         monsterHPImage.fillAmount = currMonsterHP / monsterMaxHP;
-        monsterHPText.text = currMonsterHP.ToString() + '/' + monsterMaxHP;
+        if(currMonsterHP % 1 == 0)
+        {
+            monsterHPText.text = currMonsterHP.ToString("F0") + '/' + monsterMaxHP;
+        }
+        else
+        {
+            monsterHPText.text = currMonsterHP.ToString("F1") + '/' + monsterMaxHP;
+        }
     }
 
     public void UpdatePlayerHP()
