@@ -6,6 +6,7 @@ using System.Text;
 using TMPro;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 public class PlayerStats : MonoBehaviour
@@ -201,6 +202,7 @@ public class PlayerStats : MonoBehaviour
         if (currHP <= 0) {
             Debug.Log("Game Over");
             // gameOver
+            SceneManager.LoadScene(2);
         }
     }
 }

@@ -40,6 +40,8 @@ public class Battle : MonoBehaviour
     private GameObject addGoldText;
     [SerializeField]
     private TextMeshProUGUI floorText;
+    [SerializeField]
+    private TextMeshProUGUI monsterATKText;
 
     public float fadeDuration = 1.0f;
     public float delayBeforeFade = 3.0f;
@@ -55,8 +57,12 @@ public class Battle : MonoBehaviour
 
         OnButtons();
         UpdateMonsterHP();
-        UpdatePlayerHP();
         UpdateFloorText();
+    }
+
+    private void Update()
+    {
+        UpdatePlayerHP();
     }
 
     void OnButtons()
@@ -86,6 +92,7 @@ public class Battle : MonoBehaviour
         {
             monsterHPText.text = currMonsterHP.ToString("F2") + '/' + monsterMaxHP;
         }
+        monsterATKText.text = currMonsterATK.ToString();
     }
 
     public void UpdatePlayerHP()
@@ -166,7 +173,6 @@ public class Battle : MonoBehaviour
         {
             playerStats.ChangeHP(-currMonsterATK);
             UpdateMonsterHP();
-            UpdatePlayerHP();
         }
     }
 }
