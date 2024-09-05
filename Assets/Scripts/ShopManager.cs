@@ -94,10 +94,9 @@ public class ShopManager : MonoBehaviour
         if (playerStats.gold >= hpCost)
         {
             playerStats.gold -= hpCost;
-            playerStats.currHP = playerStats.maxHP;
 
             playerStats.UpdateGoldText();
-            playerStats.UpdateHPText();
+            playerStats.ChangeHP(playerStats.maxHP);
         }
         else
         {
