@@ -9,6 +9,7 @@ public class CheckCards : MonoBehaviour
     PlayerStats playerStats;
 
     public Image[] images = new Image[6];
+    public TMP_Text[] texts = new TMP_Text[6];
     public TMP_Text damageText;
     public float damage;
 
@@ -38,28 +39,33 @@ public class CheckCards : MonoBehaviour
     {
         bool[] check = new bool[6] { false, false, false, false, false, false };
         List<float> tempStats = playerStats.GetStats();
+
+        for(int i = 0; i<6; i++)
+        {
+            if(tempStats[i]%1 == 0)
+            {
+                texts[i].text = "x"+tempStats[i].ToString("F0");
+            }
+            else
+            {
+                texts[i].text = "x" + tempStats[i].ToString("F2");
+            }
+        }
+
         float multiplier = 1.0f;
 
         // Arcane
         if (ContainsAll(array, 0))
         {
-            check[1] = true;
+            check[4] = true;
             multiplier *= tempStats[4];
-        }
-        else
-        {
-            check[1] = false;
         }
 
         // Attribute
         if (AllSame(array, 0))
         {
-            check[2] = true;    
+            check[5] = true;    
             multiplier *= tempStats[5];
-        }
-        else
-        {
-            check[2] = false;
         }
 
         // Flush
@@ -68,36 +74,26 @@ public class CheckCards : MonoBehaviour
             // Straight
             if (ContainsAll(array, 2))
             {
-                check[4] = true;
+                check[2] = true;
                 multiplier *= tempStats[2];
             }
             // Triple
             else if (AllSame(array, 2))
             {
+                check[3] = true;
                 multiplier *= tempStats[3];
-                check[5] = true;
             }
             else
             {
-                check[4] = false;
-                check[5] = false;
+                check[1] = true;
                 multiplier *= tempStats[1];
-                check[3] = true;
             }
-        }
-        else
-        {
-            check[3] = false;
         }
 
         if (!check[3] && !check[5] && CheckDouble(array))
         {
             check[0] = true;
             multiplier *= tempStats[0];
-        }
-        else
-        {
-            check[0] = false;
         }
 
         for(int i = 0; i< 6; i++)
@@ -111,6 +107,8 @@ public class CheckCards : MonoBehaviour
             {
                 color.a = 0.35f;
             }
+
+            texts[i].color = color;
             images[i].color = color;
         }
 
