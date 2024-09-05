@@ -40,6 +40,8 @@ public class PlayerStats : MonoBehaviour
     private Transform highlight;
     [SerializeField]
     private Transform image;
+    [SerializeField]
+    private Image HPimage;
 
     private ShopManager shopManager;
 
@@ -115,6 +117,7 @@ public class PlayerStats : MonoBehaviour
             }
         }
         ButtonDisable(true);
+        shopManager.SetCost();
     }
 
     private void ButtonDisable(bool flag)
@@ -166,6 +169,7 @@ public class PlayerStats : MonoBehaviour
         hpText.text += currHP.ToString();
         hpText.text += " / ";
         hpText.text += maxHP.ToString();
+        HPimage.fillAmount = currHP / maxHP;
     }
 
     public void Clear()

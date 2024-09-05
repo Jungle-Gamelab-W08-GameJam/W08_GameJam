@@ -50,6 +50,8 @@ public class ShopManager : MonoBehaviour
     private GameObject shopUI;
     [SerializeField]
     private GameObject battleUI;
+    [SerializeField]
+    private Battle battle;
 
     void Start()
     {
@@ -80,6 +82,10 @@ public class ShopManager : MonoBehaviour
                 bonusLeft--;
                 if (bonusLeft==0) ExitBonus();
             }
+            else
+            {
+                scrollCost[stat] += (int)Mathf.Pow(10, (battle.floor / 5) - 1);
+            }
 
             playerStats.ChangeStat(stat);
         }
@@ -91,20 +97,21 @@ public class ShopManager : MonoBehaviour
 
     public void OnHPButon()
     {
-        if (playerStats.gold >= hpCost)
-        {
-            playerStats.gold -= hpCost;
+        //if (playerStats.gold >= hpCost)
+        //{
+        //    playerStats.gold -= hpCost;
 
-            playerStats.UpdateGoldText();
-            playerStats.ChangeHP(playerStats.maxHP);
-        }
-        else
-        {
-            Debug.Log("Not enough gold!");
-        }
+        //    playerStats.UpdateGoldText();
+        //    playerStats.ChangeHP(playerStats.maxHP);
+        //}
+        //else
+        //{
+        //    Debug.Log("Not enough gold!");
+        //}
+        playerStats.ChangeHP(playerStats.maxHP);
     }
 
-    private void SetCost()
+    public void SetCost()
     {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < scrollCost.Count; i++)
@@ -174,6 +181,7 @@ public class ShopManager : MonoBehaviour
     public void OnShopUI()
     {
         shopUI.SetActive(true);
+        SetCost();
     }
 
     public void CloseShopUI()
@@ -182,7 +190,9 @@ public class ShopManager : MonoBehaviour
         SetProb();
         ExitFever();
         ExitBonus();
+        OnHPButon();
         playerStats.UpdateMulText(99);
+        playerStats.UpdateHPText();
         shopUI.SetActive(false);
         battleUI.SetActive(true);
     }

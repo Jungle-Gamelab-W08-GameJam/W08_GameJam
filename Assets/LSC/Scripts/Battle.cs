@@ -27,7 +27,7 @@ public class Battle : MonoBehaviour
     private int[] monsterATKs;
 
     [SerializeField]
-    private int floor;
+    public int floor;
     [SerializeField]
     private float currMonsterHP;
     [SerializeField]
@@ -38,6 +38,8 @@ public class Battle : MonoBehaviour
     private GameObject battleScene;
     [SerializeField]
     private GameObject addGoldText;
+    [SerializeField]
+    private TextMeshProUGUI floorText;
 
     public float fadeDuration = 1.0f;
     public float delayBeforeFade = 3.0f;
@@ -54,6 +56,7 @@ public class Battle : MonoBehaviour
         OnButtons();
         UpdateMonsterHP();
         UpdatePlayerHP();
+        UpdateFloorText();
     }
 
     void OnButtons()
@@ -75,13 +78,25 @@ public class Battle : MonoBehaviour
     public void UpdateMonsterHP()
     {
         monsterHPImage.fillAmount = currMonsterHP / monsterMaxHP;
-        monsterHPText.text = currMonsterHP.ToString() + '/' + monsterMaxHP;
+        if(currMonsterHP%1 == 0)
+        {
+            monsterHPText.text = currMonsterHP.ToString("F0") + '/' + monsterMaxHP;
+        }
+        else
+        {
+            monsterHPText.text = currMonsterHP.ToString("F2") + '/' + monsterMaxHP;
+        }
     }
 
     public void UpdatePlayerHP()
     {
         playerHPImage.fillAmount = playerStats.currHP / playerStats.maxHP;
         playerHPText.text = playerStats.currHP.ToString() + '/' + playerStats.maxHP;
+    }
+
+    public void UpdateFloorText()
+    {
+        floorText.text = floor.ToString()+"층";
     }
 
     public void MonsterDead()
@@ -94,6 +109,13 @@ public class Battle : MonoBehaviour
 
         if (floor % 5 == 0)
         {
+            if (floor != 5)
+            {
+                for (int i = 0; i < shopManager.scrollCost.Count; i++)
+                {
+                    shopManager.scrollCost[i] *= 2 * ((floor / 5) - 1);
+                }
+            }
             battleScene.SetActive(false);
             shopManager.OnShopUI();
         }
@@ -119,6 +141,7 @@ public class Battle : MonoBehaviour
 
         // ���������� ��Ȱ��ȭ
         addGoldText.SetActive(false);
+        addGoldText.GetComponent<TMP_Text>().color = Color.yellow;
     }
 
     IEnumerator HandleBattleAfterAnimation()
@@ -137,6 +160,7 @@ public class Battle : MonoBehaviour
             StartCoroutine(FadeOutAndDeactivate());
             currMonsterHP = 0;
             MonsterDead();
+            UpdateFloorText();
         }
         else
         {

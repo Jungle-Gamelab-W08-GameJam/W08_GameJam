@@ -90,7 +90,7 @@ public class CheckCards : MonoBehaviour
             }
         }
 
-        if (!check[3] && !check[5] && CheckDouble(array))
+        if (!check[1] && !check[3] && CheckDouble(array))
         {
             check[0] = true;
             multiplier *= tempStats[0];
@@ -99,16 +99,19 @@ public class CheckCards : MonoBehaviour
         for(int i = 0; i< 6; i++)
         {
             Color color = images[i].color;
+            Color txtColor = texts[i].color;
             if (check[i])
             {
-                color.a = 1f;        
+                color.a = 1f;
+                txtColor.a = 1f;
             }
             else
             {
                 color.a = 0.35f;
+                txtColor.a = 0.35f;
             }
 
-            texts[i].color = color;
+            texts[i].color = txtColor;
             images[i].color = color;
         }
 
