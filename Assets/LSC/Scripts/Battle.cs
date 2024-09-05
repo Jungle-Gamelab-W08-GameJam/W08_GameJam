@@ -6,7 +6,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-
 public class Battle : MonoBehaviour
 {
     public ShopManager shopManager;
@@ -38,6 +37,10 @@ public class Battle : MonoBehaviour
     private GameObject battleScene;
     [SerializeField]
     private GameObject addGoldText;
+    [SerializeField]
+    private TMP_Text floorText;
+    [SerializeField]
+    private TMP_Text monsterAtkText;
 
     public float fadeDuration = 1.0f;
     public float delayBeforeFade = 3.0f;
@@ -52,6 +55,8 @@ public class Battle : MonoBehaviour
         OnButtons();
         UpdateMonsterHP();
         UpdatePlayerHP();
+        UpdateFloorText();
+        UpdateMonsterAtk();
     }
 
     void OnButtons()
@@ -60,6 +65,16 @@ public class Battle : MonoBehaviour
 
         battleButton.onClick.AddListener(OnBattle);
         battleButton.onClick.AddListener(drawController.DecisionDraw);
+    }
+
+    void UpdateFloorText()
+    {
+        floorText.text = floor + "Ãþ";
+    }
+
+    void UpdateMonsterAtk()
+    {
+        monsterAtkText.text = currMonsterATK.ToString();
     }
 
     public void OnBattle()
@@ -120,7 +135,9 @@ public class Battle : MonoBehaviour
             shopManager.OnShopUI();
         }
 
+        UpdateFloorText();
         UpdateMonsterHP();
+        UpdateMonsterAtk();
     }
 
     IEnumerator FadeOutAndDeactivate()
