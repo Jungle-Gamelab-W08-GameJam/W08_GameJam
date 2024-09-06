@@ -84,7 +84,7 @@ public class Battle : MonoBehaviour
     public void UpdateMonsterHP()
     {
         monsterHPImage.fillAmount = (float)currMonsterHP / monsterMaxHP;
-        if(currMonsterHP%1 == 0)
+        if (currMonsterHP % 1 == 0)
         {
             monsterHPText.text = currMonsterHP.ToString("F0") + '/' + monsterMaxHP;
         }
@@ -103,7 +103,7 @@ public class Battle : MonoBehaviour
 
     public void UpdateFloorText()
     {
-        floorText.text = floor.ToString()+"층";
+        floorText.text = floor.ToString() + "층";
     }
 
     public void MonsterDead()
@@ -112,7 +112,7 @@ public class Battle : MonoBehaviour
         monsterMaxHP = monsterHPs[floor];
         currMonsterHP = monsterMaxHP;
         currMonsterATK = monsterATKs[floor];
-        drawController.ClickFightButton();
+        //drawController.ClickFightButton();
 
         if (floor % 5 == 0)
         {
