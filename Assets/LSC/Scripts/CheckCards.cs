@@ -11,7 +11,7 @@ public class CheckCards : MonoBehaviour
     public Image[] images = new Image[6];
     public TMP_Text[] texts = new TMP_Text[6];
     public TMP_Text damageText;
-    public float damage;
+    public double damage;
 
 
     private void Start()
@@ -52,7 +52,7 @@ public class CheckCards : MonoBehaviour
             }
         }
 
-        float multiplier = 1.0f;
+        double multiplier = 1.0;
 
         // Arcane
         if (ContainsAll(array, 0))
