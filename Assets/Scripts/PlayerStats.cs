@@ -147,7 +147,7 @@ public class PlayerStats : MonoBehaviour
     public void UpdateGoldText()
     {
         goldText.text = gold.ToString("F0");
-        goldText.text += " G";
+        goldText.text += " ¸Þ¼Ò";
     }
 
     public void UpdateMulText(int code)
@@ -166,11 +166,13 @@ public class PlayerStats : MonoBehaviour
 
     public void UpdateHPText()
     {
+        /*
         hpText.text = "HP: ";
         hpText.text += currHP.ToString();
         hpText.text += " / ";
         hpText.text += maxHP.ToString();
         HPimage.fillAmount = currHP / maxHP;
+        */
     }
 
     public void Clear()

@@ -159,7 +159,7 @@ public class Battle : MonoBehaviour
             double tempHP = currMonsterHP;
             playerStats.GetGold(Mathf.Abs((float)(tempHP * 10)));
             double tempGold = Mathf.Abs((float)(tempHP * 10));
-            addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString("F0") + "G 획득!";
+            addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString("F0") + "메소 획득!";
             addGoldText.SetActive(true);
             StartCoroutine(FadeOutAndDeactivate());
             currMonsterHP = 0;
