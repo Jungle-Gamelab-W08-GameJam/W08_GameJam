@@ -146,7 +146,7 @@ public class PlayerStats : MonoBehaviour
 
     public void UpdateGoldText()
     {
-        goldText.text = gold.ToString();
+        goldText.text = gold.ToString("F0");
         goldText.text += " G";
     }
 

@@ -124,14 +124,14 @@ public class Test_Battle : MonoBehaviour
         battleButton.interactable = true;
         double damage = checkCards.damage;
         currMonsterHP -= damage;
-
+        Debug.Log((int)currMonsterHP + "획득");
 
         if (currMonsterHP <= 0)
         {
-            double tempHP = currMonsterHP;
-            playerStats.GetGold(Mathf.Abs((int)tempHP));
-            int tempGold = Mathf.Abs((int)tempHP);
-            addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString() + "��� ȹ��!";
+            int tempHP = (int)currMonsterHP;
+            playerStats.GetGold(Mathf.Abs(tempHP));
+            int tempGold = Mathf.Abs(tempHP);
+            addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString("F0") + "��� ȹ��!";
             addGoldText.SetActive(true);
             StartCoroutine(FadeOutAndDeactivate());
             currMonsterHP = 0;
