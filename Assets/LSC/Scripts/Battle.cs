@@ -132,11 +132,9 @@ public class Battle : MonoBehaviour
 
     IEnumerator FadeOutAndDeactivate()
     {
-        // 3�� ���
         yield return new WaitForSeconds(delayBeforeFade);
         Color originalColor = addGoldText.GetComponent<TMP_Text>().color;
 
-        // 1�� ���� ���̵�ƿ�
         float elapsedTime = 0f;
         while (elapsedTime < fadeDuration)
         {
@@ -146,7 +144,6 @@ public class Battle : MonoBehaviour
             yield return null;
         }
 
-        // ���������� ��Ȱ��ȭ
         addGoldText.SetActive(false);
         addGoldText.GetComponent<TMP_Text>().color = Color.yellow;
     }
@@ -162,7 +159,7 @@ public class Battle : MonoBehaviour
             double tempHP = currMonsterHP;
             playerStats.GetGold(Mathf.Abs((float)(tempHP * 10)));
             double tempGold = Mathf.Abs((float)(tempHP * 10));
-            addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString() + "G 획득!";
+            addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString("F0") + "G 획득!";
             addGoldText.SetActive(true);
             StartCoroutine(FadeOutAndDeactivate());
             currMonsterHP = 0;

@@ -164,7 +164,6 @@ public class DrawController : MonoBehaviour
         drawCard3.GetComponent<Image>().sprite = Resources.Load<Sprite>($"Images/{drawCards[2]}");
 
         KingManager.Instance.DrawCards = drawCards;
-        Debug.Log(KingManager.Instance.DrawCards);
     }
 
     /*
