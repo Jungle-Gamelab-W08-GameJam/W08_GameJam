@@ -25,7 +25,7 @@ public class PlayerStats : MonoBehaviour
     [SerializeField]
     private Transform button;
     
-    public int gold;
+    public long gold;
 
     [SerializeField]
     private TextMeshProUGUI upgradeText;
@@ -190,8 +190,8 @@ public class PlayerStats : MonoBehaviour
         return stats;
     }
 
-    public void GetGold(int getGold) {
-        gold += getGold;
+    public void GetGold(double getGold) {
+        gold += (long)getGold;
         UpdateGoldText();
     }
 
