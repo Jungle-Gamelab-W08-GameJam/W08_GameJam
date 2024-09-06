@@ -123,6 +123,7 @@ public class Battle : MonoBehaviour
                     shopManager.scrollCost[i] *= 2 * ((floor / 5) - 1);
                 }
             }
+            drawController.ClickFightButton();
             battleScene.SetActive(false);
             shopManager.OnShopUI();
         }
