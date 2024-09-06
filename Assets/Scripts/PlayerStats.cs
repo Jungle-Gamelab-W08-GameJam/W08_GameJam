@@ -189,8 +189,8 @@ public class PlayerStats : MonoBehaviour
         return stats;
     }
 
-    public void GetGold(int getGold) {
-        gold += getGold;
+    public void GetGold(float getGold) {
+        gold += (int)getGold;
         UpdateGoldText();
     }
 

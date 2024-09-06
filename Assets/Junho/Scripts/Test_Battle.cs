@@ -29,7 +29,7 @@ public class Test_Battle : MonoBehaviour
     [SerializeField]
     private int floor;
     [SerializeField]
-    private float currMonsterHP;
+    private double currMonsterHP;
     [SerializeField]
     private int monsterMaxHP;
     [SerializeField]
@@ -71,7 +71,7 @@ public class Test_Battle : MonoBehaviour
 
     public void UpdateMonsterHP()
     {
-        monsterHPImage.fillAmount = currMonsterHP / monsterMaxHP;
+        monsterHPImage.fillAmount = (float)currMonsterHP / monsterMaxHP;
         monsterHPText.text = currMonsterHP.ToString() + '/' + monsterMaxHP;
     }
 
@@ -122,13 +122,13 @@ public class Test_Battle : MonoBehaviour
     {
         yield return new WaitForSeconds(4f);
         battleButton.interactable = true;
-        float damage = checkCards.damage;
+        double damage = checkCards.damage;
         currMonsterHP -= damage;
 
 
         if (currMonsterHP <= 0)
         {
-            float tempHP = currMonsterHP;
+            double tempHP = currMonsterHP;
             playerStats.GetGold(Mathf.Abs((int)tempHP));
             int tempGold = Mathf.Abs((int)tempHP);
             addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString() + "��� ȹ��!";

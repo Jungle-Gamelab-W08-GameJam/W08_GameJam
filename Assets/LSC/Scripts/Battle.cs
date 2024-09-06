@@ -29,7 +29,7 @@ public class Battle : MonoBehaviour
     [SerializeField]
     public int floor;
     [SerializeField]
-    private float currMonsterHP;
+    private double currMonsterHP;
     [SerializeField]
     private int monsterMaxHP;
     [SerializeField]
@@ -44,7 +44,7 @@ public class Battle : MonoBehaviour
     public float fadeDuration = 1.0f;
     public float delayBeforeFade = 3.0f;
 
-    private float damage;
+    double damage;
 
     void Start()
     {
@@ -77,7 +77,7 @@ public class Battle : MonoBehaviour
 
     public void UpdateMonsterHP()
     {
-        monsterHPImage.fillAmount = currMonsterHP / monsterMaxHP;
+        monsterHPImage.fillAmount = (float)currMonsterHP / monsterMaxHP;
         if(currMonsterHP%1 == 0)
         {
             monsterHPText.text = currMonsterHP.ToString("F0") + '/' + monsterMaxHP;
@@ -152,9 +152,9 @@ public class Battle : MonoBehaviour
 
         if (currMonsterHP <= 0)
         {
-            float tempHP = currMonsterHP;
-            playerStats.GetGold(Mathf.Abs((int)(tempHP * 10)));
-            int tempGold = Mathf.Abs((int)(tempHP * 10));
+            double tempHP = currMonsterHP;
+            playerStats.GetGold(Mathf.Abs((float)(tempHP * 10)));
+            double tempGold = Mathf.Abs((float)(tempHP * 10));
             addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString() + "G 획득!";
             addGoldText.SetActive(true);
             StartCoroutine(FadeOutAndDeactivate());
