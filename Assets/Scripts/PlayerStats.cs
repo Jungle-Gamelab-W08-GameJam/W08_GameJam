@@ -149,10 +149,10 @@ public class PlayerStats : MonoBehaviour
     public void UpdateGoldText()
     {
         goldText.text = gold.ToString("F0");
-        goldText.text += " ¸Þ¼Ò";
+        goldText.text += " ë©”ì†Œ";
 
         ShopGoldText.text = gold.ToString("F0");
-        ShopGoldText.text += " ¸Þ¼Ò";
+        ShopGoldText.text += " ë©”ì†Œ";
     }
 
     public void UpdateMulText(int code)
