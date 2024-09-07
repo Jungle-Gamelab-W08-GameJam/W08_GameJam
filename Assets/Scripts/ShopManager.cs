@@ -51,6 +51,10 @@ public class ShopManager : MonoBehaviour
     private GameObject battleUI;
     [SerializeField]
     private Battle battle;
+    [SerializeField]
+    private TextMeshProUGUI scrollLeftText;
+    [SerializeField]
+    private List<int> scrollLeft = new List<int>();
 
     void Start()
     {
@@ -64,18 +68,7 @@ public class ShopManager : MonoBehaviour
     public void OnBuyButton(int stat)
     {
         if (playerStats.gold >= scrollCost[stat] * bonusCost)
-        {
-            playerStats.gold -= scrollCost[stat] * bonusCost;
-            playerStats.UpdateGoldText();
-
-            if (onFever)
-            {
-                feverLeft--;
-                feverText.text = "피버 타임! 남은 카운트: ";
-                feverText.text += feverLeft.ToString();
-                if (feverLeft == 0) ExitFever();
-            }
-
+        { 
             if (onBonus)
             {
                 bonusLeft--;
@@ -84,8 +77,27 @@ public class ShopManager : MonoBehaviour
             else
             {
                 scrollCost[stat] += (int)Mathf.Pow(10, (battle.floor / 5) - 1);
+                if (scrollLeft[stat] <= 0)
+                {
+                    return;
+                }
+                else
+                {
+                    scrollLeft[stat] -= 1;
+                    SetScrollLeftText();
+                    playerStats.gold -= scrollCost[stat] * bonusCost;
+                    playerStats.UpdateGoldText();
+                }
             }
 
+            if (onFever)
+            {
+                feverLeft--;
+                feverText.text = "Fever Time! Left Count: ";
+                feverText.text += feverLeft.ToString();
+                if (feverLeft == 0) ExitFever();
+            }
+            
             playerStats.ChangeStat(stat);
         }
         else
@@ -128,6 +140,25 @@ public class ShopManager : MonoBehaviour
             sb.Insert(0, (successRate[i] * feverSuccessRate).ToString() + "%\n");
         }
         prob.text = sb.ToString();
+    }
+
+    private void SetScrollLeft()
+    {
+        for (int i = 0; i < scrollLeft.Count; i++)
+        {
+            scrollLeft[i] = 10;
+        }
+        SetScrollLeftText();
+    }
+
+    private void SetScrollLeftText()
+    {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < scrollLeft.Count; i++)
+        {
+            sb.AppendLine((scrollLeft[i]).ToString() + " ");
+        }
+        scrollLeftText.text = sb.ToString();
     }
 
     public void EnterFever()
@@ -177,10 +208,13 @@ public class ShopManager : MonoBehaviour
         bonusText.text = " ";
     }
 
+
+
     public void OnShopUI()
     {
         shopUI.SetActive(true);
         SetCost();
+        SetScrollLeft();
     }
 
     public void CloseShopUI()
