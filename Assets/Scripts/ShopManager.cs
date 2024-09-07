@@ -71,15 +71,15 @@ public class ShopManager : MonoBehaviour
             if (onFever)
             {
                 feverLeft--;
-                feverText.text = "Fever Time! Left Count: ";
+                feverText.text = "피버 타임! 남은 카운트: ";
                 feverText.text += feverLeft.ToString();
-                if (feverLeft==0) ExitFever();
+                if (feverLeft == 0) ExitFever();
             }
-                
+
             if (onBonus)
             {
                 bonusLeft--;
-                if (bonusLeft==0) ExitBonus();
+                if (bonusLeft == 0) ExitBonus();
             }
             else
             {
@@ -133,12 +133,12 @@ public class ShopManager : MonoBehaviour
     public void EnterFever()
     {
         onFever = true;
-        
+
         feverLeft = 5;
         feverIncreseRate = 1.5f;
         feverSuccessRate = 1.2f;
 
-        feverText.text = "Fever Time! Left Count: ";
+        feverText.text = "피버 타임! 남은 카운트: ";
         feverText.text += feverLeft.ToString();
 
         playerStats.UpdateMulText(99);
@@ -148,7 +148,7 @@ public class ShopManager : MonoBehaviour
     public void ExitFever()
     {
         onFever = false;
-        
+
         feverIncreseRate = 1;
         feverSuccessRate = 1;
 
@@ -165,7 +165,7 @@ public class ShopManager : MonoBehaviour
         bonusCost = 0;
         SetCost();
 
-        bonusText.text = "Bonus Scroll!";
+        bonusText.text = "보너스 줌서!";
     }
 
     public void ExitBonus()
