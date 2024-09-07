@@ -707,6 +707,59 @@ MonoBehaviour:
   addGoldText: {fileID: 755450978}
   floorText: {fileID: 1451512839}
   monsterATKText: {fileID: 1242330582}
+  monsterImgs:
+  - {fileID: 21300000, guid: b481a833f959c2a4fbb0f92402ce12aa, type: 3}
+  - {fileID: 21300000, guid: b481a833f959c2a4fbb0f92402ce12aa, type: 3}
+  - {fileID: 21300000, guid: 865413fc8585f664da0b006a5ec75c7b, type: 3}
+  - {fileID: 21300000, guid: 79ef8e6a27e3d774183cf7ac5fb5d775, type: 3}
+  - {fileID: 21300000, guid: 5fc0333d30b324642a9205774b9014b1, type: 3}
+  - {fileID: 21300000, guid: ffa80c83a601a9a47962d71245b254e3, type: 3}
+  - {fileID: 21300000, guid: 7c30d8306423bdf4c9bde6edcd04642e, type: 3}
+  - {fileID: 21300000, guid: 40e1bfb4ede648248a64c2204cbbc2ec, type: 3}
+  - {fileID: 21300000, guid: 1cfbb64a2dea2e749ae54857b3297fe2, type: 3}
+  - {fileID: 21300000, guid: 8c7f790e218268946b2ba59eb10e97b6, type: 3}
+  - {fileID: 21300000, guid: 51fa3ab126a48cc42867c90af213a384, type: 3}
+  - {fileID: 21300000, guid: 9bf867546b87bda47a705d21d3a32f96, type: 3}
+  - {fileID: 21300000, guid: 5d2fc03b1d041de49b9b16c0647620ac, type: 3}
+  - {fileID: 21300000, guid: f7047ff975d7599499c4aaa75eb2250c, type: 3}
+  - {fileID: 21300000, guid: 07c8d332c61fbf2469f950031b23c38f, type: 3}
+  - {fileID: 21300000, guid: 6fa9335b9356edc4f8143e36ef68b644, type: 3}
+  - {fileID: 21300000, guid: 57ee7109a2d016e46b249fc1ab38fc04, type: 3}
+  - {fileID: 21300000, guid: 71dffa9e746c6284b83b585da6ccb56a, type: 3}
+  - {fileID: 21300000, guid: 5d707d6ed20aaf44ea9c82c7757ce02d, type: 3}
+  - {fileID: 21300000, guid: abc2a0700b0f4624fba2d761a28e1108, type: 3}
+  - {fileID: 21300000, guid: 6379a5c98d4eae64da80d17389582781, type: 3}
+  - {fileID: 21300000, guid: f4852790dd1e7814184d51b1e58014ea, type: 3}
+  - {fileID: 21300000, guid: 1393ebbe97f09364fafec5651a88feea, type: 3}
+  - {fileID: 21300000, guid: 1f37d9c0f0f672f48b9cd6ca1cdd93f8, type: 3}
+  - {fileID: 21300000, guid: 3cb6963586b07ca49bf2da80cb8fef98, type: 3}
+  - {fileID: 21300000, guid: 4bd4131b50c7ba04cbf6554ae1c65ae4, type: 3}
+  - {fileID: 21300000, guid: db66c0a293e000c47a414732dc38a91a, type: 3}
+  - {fileID: 21300000, guid: ac085116dcff8af4ca5716bf3fdb7156, type: 3}
+  - {fileID: 21300000, guid: 122613a46b2cef1419287fca27e73090, type: 3}
+  - {fileID: 21300000, guid: 2c176134e7964ca4797bb6be2765b3e9, type: 3}
+  - {fileID: 21300000, guid: b8500c997a750e146bac7f42ce72e7b0, type: 3}
+  - {fileID: 21300000, guid: 49ac44a7a78fb5b42820309593677ad5, type: 3}
+  - {fileID: 21300000, guid: 795baf465e6d70f4495fa0e95bee7c6a, type: 3}
+  - {fileID: 21300000, guid: ab45bc8ef7637604f95a591e52809ece, type: 3}
+  - {fileID: 21300000, guid: 48a418151f6f76148bd4312d2d8fd30c, type: 3}
+  - {fileID: 21300000, guid: c7d953fbe12c6884ba68fe5d2d618c41, type: 3}
+  - {fileID: 21300000, guid: be9d26135ff25f14da9607c762c3b735, type: 3}
+  - {fileID: 21300000, guid: a61b25195ae9a294e8738f09ef496817, type: 3}
+  - {fileID: 21300000, guid: 4317bccb973e5ba4abba6a0322f7c7bb, type: 3}
+  - {fileID: 21300000, guid: 2eb45c38737a3a14cb4916c4d0882cb3, type: 3}
+  - {fileID: 21300000, guid: 654f0b7a2defcc44a9ad87b497b7de12, type: 3}
+  - {fileID: 21300000, guid: f7c28c508074c4940afd0597e4eafcc9, type: 3}
+  - {fileID: 21300000, guid: e0c7ce1dd1e8ef842aa600a35fe6b1a5, type: 3}
+  - {fileID: 21300000, guid: 2977cff01354f7f4e9e32edb555daf3f, type: 3}
+  - {fileID: 21300000, guid: e59000d860c7049448e956920a0d9ff4, type: 3}
+  - {fileID: 21300000, guid: 0afaeb37f464d6842a270acb258f80b5, type: 3}
+  - {fileID: 21300000, guid: 5ef7dbd83e06880439b9991bd0e7e3ff, type: 3}
+  - {fileID: 21300000, guid: e17c4db0b2fc76c4b8bd8447b3bfcc6e, type: 3}
+  - {fileID: 21300000, guid: 05a262bfc2000d243b7e1797eebfa735, type: 3}
+  - {fileID: 21300000, guid: 265594225785f2d479b99bd07f1056c7, type: 3}
+  - {fileID: 21300000, guid: 90c6a01896523f44290b45c76b8d99a3, type: 3}
+  monsterImg: {fileID: 533282499}
   fadeDuration: 1
   delayBeforeFade: 3
 --- !u!4 &140111322
@@ -1090,10 +1143,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: New Text
+  m_text: "\uBA54\uC18C"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 78de28b1cd4b46b43beec42bd6412fe5, type: 2}
+  m_sharedMaterial: {fileID: 1832332630359341698, guid: 78de28b1cd4b46b43beec42bd6412fe5, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -2224,7 +2277,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 90c6a01896523f44290b45c76b8d99a3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: b481a833f959c2a4fbb0f92402ce12aa, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
