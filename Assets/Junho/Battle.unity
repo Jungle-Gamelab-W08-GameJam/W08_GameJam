@@ -8203,7 +8203,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Battle
+  m_text: "\uACF5\uACA9!"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ec744ddd1b0ce0d4bac2ba9088d89e8a, type: 2}
   m_sharedMaterial: {fileID: 4187552138296602003, guid: ec744ddd1b0ce0d4bac2ba9088d89e8a, type: 2}
