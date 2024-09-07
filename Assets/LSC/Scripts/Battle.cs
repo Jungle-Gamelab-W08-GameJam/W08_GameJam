@@ -47,6 +47,12 @@ public class Battle : MonoBehaviour
     [SerializeField]
     private Image monsterImg;
 
+    [SerializeField]
+    private TextMeshProUGUI currHPText;
+
+    public GameObject coinText;
+    public GameObject shopText;
+
     public float fadeDuration = 1.0f;
     public float delayBeforeFade = 3.0f;
 
@@ -102,6 +108,7 @@ public class Battle : MonoBehaviour
     public void UpdatePlayerHP()
     {
         playerHPImage.fillAmount = playerStats.currHP / playerStats.maxHP;
+        currHPText.text = "최대 체력 : "+playerStats.maxHP.ToString();
         playerHPText.text = playerStats.currHP.ToString() + '/' + playerStats.maxHP;
     }
 
@@ -127,6 +134,8 @@ public class Battle : MonoBehaviour
                     shopManager.scrollCost[i] *= 2 * ((floor / 5) - 1);
                 }
             }
+            coinText.SetActive(false);
+            shopText.SetActive(true);
             battleScene.SetActive(false);
             shopManager.OnShopUI();
         }
