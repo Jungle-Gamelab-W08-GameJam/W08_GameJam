@@ -44,6 +44,16 @@ public class Battle : MonoBehaviour
     private TextMeshProUGUI floorText;
     [SerializeField]
     private TextMeshProUGUI monsterATKText;
+    [SerializeField]
+    private Sprite[] monsterImgs;
+    [SerializeField]
+    private Image monsterImg;
+
+    [SerializeField]
+    private TextMeshProUGUI currHPText;
+
+    public GameObject coinText;
+    public GameObject shopText;
 
     public float fadeDuration = 1.0f;
     public float delayBeforeFade = 3.0f;
@@ -99,6 +109,7 @@ public class Battle : MonoBehaviour
     public void UpdatePlayerHP()
     {
         playerHPImage.fillAmount = playerStats.currHP / playerStats.maxHP;
+        currHPText.text = "최대 체력 : " + playerStats.maxHP.ToString();
         playerHPText.text = playerStats.currHP.ToString() + '/' + playerStats.maxHP;
     }
 
@@ -125,6 +136,8 @@ public class Battle : MonoBehaviour
                 }
             }
             drawController.ClickFightButton();
+            coinText.SetActive(false);
+            shopText.SetActive(true);
             battleScene.SetActive(false);
             shopManager.OnShopUI();
         }
@@ -162,7 +175,7 @@ public class Battle : MonoBehaviour
             double tempHP = currMonsterHP;
             playerStats.GetGold(Mathf.Abs((float)(tempHP * 10)));
             double tempGold = Mathf.Abs((float)(tempHP * 10));
-            addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString("F0") + "G 획득!";
+            addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString("F0") + "메소 획득!";
             addGoldText.SetActive(true);
             heatText.GetComponent<TMP_Text>().text = "-" + damage.ToString("F0");
             heatText.SetActive(true);
@@ -171,6 +184,7 @@ public class Battle : MonoBehaviour
             currMonsterHP = 0;
             MonsterDead();
             UpdateFloorText();
+            monsterImg.sprite = monsterImgs[floor];
         }
         else
         {
