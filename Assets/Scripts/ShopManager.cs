@@ -52,6 +52,10 @@ public class ShopManager : MonoBehaviour
     [SerializeField]
     private Battle battle;
     [SerializeField]
+    private TextMeshProUGUI scrollLeftText;
+    [SerializeField]
+    private List<int> scrollLeft = new List<int>();
+    [SerializeField]
     private AudioClip[] bgms;
 
     void Start()
@@ -66,28 +70,36 @@ public class ShopManager : MonoBehaviour
     public void OnBuyButton(int stat)
     {
         if (playerStats.gold >= scrollCost[stat] * bonusCost)
-        {
-            playerStats.gold -= scrollCost[stat] * bonusCost;
-            playerStats.UpdateGoldText();
+        { 
+            if (onBonus)
+            {
+                bonusLeft--;
+                if (bonusLeft == 0) ExitBonus();
+            }
+            else
+            {
+                scrollCost[stat] += (int)Mathf.Pow(10, (battle.floor / 5) - 1);
+                if (scrollLeft[stat] <= 0)
+                {
+                    return;
+                }
+                else
+                {
+                    scrollLeft[stat] -= 1;
+                    SetScrollLeftText();
+                    playerStats.gold -= scrollCost[stat] * bonusCost;
+                    playerStats.UpdateGoldText();
+                }
+            }
 
             if (onFever)
             {
                 feverLeft--;
                 feverText.text = "Fever Time! Left Count: ";
                 feverText.text += feverLeft.ToString();
-                if (feverLeft==0) ExitFever();
+                if (feverLeft == 0) ExitFever();
             }
-                
-            if (onBonus)
-            {
-                bonusLeft--;
-                if (bonusLeft==0) ExitBonus();
-            }
-            else
-            {
-                scrollCost[stat] += (int)Mathf.Pow(10, (battle.floor / 5) - 1);
-            }
-
+            
             playerStats.ChangeStat(stat);
         }
         else
@@ -132,15 +144,34 @@ public class ShopManager : MonoBehaviour
         prob.text = sb.ToString();
     }
 
+    private void SetScrollLeft()
+    {
+        for (int i = 0; i < scrollLeft.Count; i++)
+        {
+            scrollLeft[i] = 10;
+        }
+        SetScrollLeftText();
+    }
+
+    private void SetScrollLeftText()
+    {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < scrollLeft.Count; i++)
+        {
+            sb.AppendLine((scrollLeft[i]).ToString() + " ");
+        }
+        scrollLeftText.text = sb.ToString();
+    }
+
     public void EnterFever()
     {
         onFever = true;
-        
+
         feverLeft = 5;
         feverIncreseRate = 1.5f;
         feverSuccessRate = 1.2f;
 
-        feverText.text = "Fever Time! Left Count: ";
+        feverText.text = "피버 타임! 남은 카운트: ";
         feverText.text += feverLeft.ToString();
 
         playerStats.UpdateMulText(99);
@@ -150,7 +181,7 @@ public class ShopManager : MonoBehaviour
     public void ExitFever()
     {
         onFever = false;
-        
+
         feverIncreseRate = 1;
         feverSuccessRate = 1;
 
@@ -167,7 +198,7 @@ public class ShopManager : MonoBehaviour
         bonusCost = 0;
         SetCost();
 
-        bonusText.text = "Bonus Scroll!";
+        bonusText.text = "보너스 줌서!";
     }
 
     public void ExitBonus()
@@ -179,10 +210,13 @@ public class ShopManager : MonoBehaviour
         bonusText.text = " ";
     }
 
+
+
     public void OnShopUI()
     {
         shopUI.SetActive(true);
         SetCost();
+        SetScrollLeft();
     }
 
     public void CloseShopUI()

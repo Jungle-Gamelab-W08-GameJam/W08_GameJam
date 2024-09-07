@@ -22,7 +22,7 @@ public class Battle : MonoBehaviour
     public TMP_Text monsterHPText;
 
     [SerializeField]
-    private int[] monsterHPs;
+    private long[] monsterHPs;
     [SerializeField]
     private int[] monsterATKs;
 
@@ -31,13 +31,15 @@ public class Battle : MonoBehaviour
     [SerializeField]
     private double currMonsterHP;
     [SerializeField]
-    private int monsterMaxHP;
+    private long monsterMaxHP;
     [SerializeField]
     private int currMonsterATK;
     [SerializeField]
     private GameObject battleScene;
     [SerializeField]
     private GameObject addGoldText;
+    [SerializeField]
+    private GameObject heatText;
     [SerializeField]
     private TextMeshProUGUI floorText;
     [SerializeField]
@@ -84,7 +86,6 @@ public class Battle : MonoBehaviour
         battleButton.onClick.RemoveAllListeners();
 
         battleButton.onClick.AddListener(OnBattle);
-        battleButton.onClick.AddListener(drawController.DecisionDraw);
     }
 
     public void OnBattle()
@@ -98,7 +99,7 @@ public class Battle : MonoBehaviour
     public void UpdateMonsterHP()
     {
         monsterHPImage.fillAmount = (float)currMonsterHP / monsterMaxHP;
-        if(currMonsterHP%1 == 0)
+        if (currMonsterHP % 1 == 0)
         {
             monsterHPText.text = currMonsterHP.ToString("F0") + '/' + monsterMaxHP;
         }
@@ -112,13 +113,13 @@ public class Battle : MonoBehaviour
     public void UpdatePlayerHP()
     {
         playerHPImage.fillAmount = playerStats.currHP / playerStats.maxHP;
-        currHPText.text = "최대 체력 : "+playerStats.maxHP.ToString();
+        currHPText.text = "최대 체력 : " + playerStats.maxHP.ToString();
         playerHPText.text = playerStats.currHP.ToString() + '/' + playerStats.maxHP;
     }
 
     public void UpdateFloorText()
     {
-        floorText.text = floor.ToString()+"층";
+        floorText.text = floor.ToString() + "층";
     }
 
     public void MonsterDead()
@@ -127,19 +128,21 @@ public class Battle : MonoBehaviour
         monsterMaxHP = monsterHPs[floor];
         currMonsterHP = monsterMaxHP;
         currMonsterATK = monsterATKs[floor];
-        drawController.ClickFightButton();
+        //drawController.ClickFightButton();
 
-        if (floor % 5 == 0)
+        if (floor % 5 == 1 && floor != 1)
         {
-            if (floor != 5)
+            if (floor != 6)
             {
                 for (int i = 0; i < shopManager.scrollCost.Count; i++)
                 {
-                    shopManager.scrollCost[i] *= 2 * ((floor / 5) - 1);
+                    //shopManager.scrollCost[i] *= 2 * ((floor / 5) - 1); 
+                    shopManager.scrollCost[i] *= 5; 
                 }
             }
             audioSource.clip = shopBgm;
             audioSource.Play();
+            drawController.ClickFightButton();
             coinText.SetActive(false);
             shopText.SetActive(true);
             battleScene.SetActive(false);
@@ -170,6 +173,7 @@ public class Battle : MonoBehaviour
     IEnumerator HandleBattleAfterAnimation()
     {
         yield return new WaitForSeconds(1.8f);
+        drawController.DecisionDraw();
         battleButton.interactable = true;
         currMonsterHP -= damage;
 
@@ -180,16 +184,40 @@ public class Battle : MonoBehaviour
             double tempGold = Mathf.Abs((float)(tempHP * 10));
             addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString("F0") + "메소 획득!";
             addGoldText.SetActive(true);
+            heatText.GetComponent<TMP_Text>().text = "-" + damage.ToString("F0");
+            heatText.SetActive(true);
+            StartCoroutine(HeatTextFadeOutAndDeactivate());
             StartCoroutine(FadeOutAndDeactivate());
             currMonsterHP = 0;
             MonsterDead();
             UpdateFloorText();
-            monsterImg.sprite = monsterImgs[floor]; 
+            monsterImg.sprite = monsterImgs[floor];
         }
         else
         {
             playerStats.ChangeHP(-currMonsterATK);
             UpdateMonsterHP();
+            heatText.GetComponent<TMP_Text>().text = "-" + damage.ToString("F0");
+            heatText.SetActive(true);
+            StartCoroutine(HeatTextFadeOutAndDeactivate());
         }
+    }
+
+    IEnumerator HeatTextFadeOutAndDeactivate()
+    {
+        yield return new WaitForSeconds(delayBeforeFade);
+        Color originalColor = heatText.GetComponent<TMP_Text>().color;
+
+        float elapsedTime = 0f;
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+            heatText.GetComponent<TMP_Text>().color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+            yield return null;
+        }
+
+        heatText.SetActive(false);
+        heatText.GetComponent<TMP_Text>().color = Color.red;
     }
 }
