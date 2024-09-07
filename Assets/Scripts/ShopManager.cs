@@ -51,6 +51,8 @@ public class ShopManager : MonoBehaviour
     private GameObject battleUI;
     [SerializeField]
     private Battle battle;
+    [SerializeField]
+    private AudioClip[] bgms;
 
     void Start()
     {
@@ -190,6 +192,8 @@ public class ShopManager : MonoBehaviour
         ExitFever();
         ExitBonus();
         OnHPButon();
+        battle.audioSource.clip = bgms[battle.floor / 5];
+        battle.audioSource.Play();
         playerStats.UpdateMulText(99);
         playerStats.UpdateHPText();
         battle.coinText.SetActive(true);

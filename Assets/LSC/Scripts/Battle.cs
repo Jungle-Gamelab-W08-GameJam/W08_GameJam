@@ -53,6 +53,10 @@ public class Battle : MonoBehaviour
     public GameObject coinText;
     public GameObject shopText;
 
+    public AudioSource audioSource;
+    [SerializeField]
+    private AudioClip shopBgm;
+
     public float fadeDuration = 1.0f;
     public float delayBeforeFade = 3.0f;
 
@@ -134,6 +138,8 @@ public class Battle : MonoBehaviour
                     shopManager.scrollCost[i] *= 2 * ((floor / 5) - 1);
                 }
             }
+            audioSource.clip = shopBgm;
+            audioSource.Play();
             coinText.SetActive(false);
             shopText.SetActive(true);
             battleScene.SetActive(false);
