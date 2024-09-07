@@ -70,7 +70,6 @@ public class Battle : MonoBehaviour
         battleButton.onClick.RemoveAllListeners();
 
         battleButton.onClick.AddListener(OnBattle);
-        battleButton.onClick.AddListener(drawController.DecisionDraw);
     }
 
     public void OnBattle()
@@ -152,6 +151,7 @@ public class Battle : MonoBehaviour
     IEnumerator HandleBattleAfterAnimation()
     {
         yield return new WaitForSeconds(1.8f);
+        drawController.DecisionDraw();
         battleButton.interactable = true;
         currMonsterHP -= damage;
 
