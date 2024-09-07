@@ -22,7 +22,7 @@ public class Battle : MonoBehaviour
     public TMP_Text monsterHPText;
 
     [SerializeField]
-    private int[] monsterHPs;
+    private long[] monsterHPs;
     [SerializeField]
     private int[] monsterATKs;
 
@@ -31,7 +31,7 @@ public class Battle : MonoBehaviour
     [SerializeField]
     private double currMonsterHP;
     [SerializeField]
-    private int monsterMaxHP;
+    private long monsterMaxHP;
     [SerializeField]
     private int currMonsterATK;
     [SerializeField]
@@ -126,14 +126,14 @@ public class Battle : MonoBehaviour
         currMonsterATK = monsterATKs[floor];
         //drawController.ClickFightButton();
 
-        if (floor % 5 == 0)
+        if (floor % 5 == 1 && floor != 1)
         {
-            if (floor != 5)
+            if (floor != 6)
             {
                 for (int i = 0; i < shopManager.scrollCost.Count; i++)
                 {
                     //shopManager.scrollCost[i] *= 2 * ((floor / 5) - 1); 
-                    shopManager.scrollCost[i] *= 4; 
+                    shopManager.scrollCost[i] *= 5; 
                 }
             }
             drawController.ClickFightButton();
