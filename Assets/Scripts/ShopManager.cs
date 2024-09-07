@@ -192,6 +192,8 @@ public class ShopManager : MonoBehaviour
         OnHPButon();
         playerStats.UpdateMulText(99);
         playerStats.UpdateHPText();
+        battle.coinText.SetActive(true);
+        battle.shopText.SetActive(false);
         shopUI.SetActive(false);
         battleUI.SetActive(true);
     }

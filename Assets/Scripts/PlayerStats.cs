@@ -43,6 +43,8 @@ public class PlayerStats : MonoBehaviour
     private Transform image;
     [SerializeField]
     private Image HPimage;
+    [SerializeField]
+    private TMP_Text ShopGoldText;
 
     private ShopManager shopManager;
 
@@ -148,6 +150,9 @@ public class PlayerStats : MonoBehaviour
     {
         goldText.text = gold.ToString("F0");
         goldText.text += " 五社";
+
+        ShopGoldText.text = gold.ToString("F0");
+        ShopGoldText.text += " 五社";
     }
 
     public void UpdateMulText(int code)
