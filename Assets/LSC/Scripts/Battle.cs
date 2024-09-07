@@ -42,6 +42,10 @@ public class Battle : MonoBehaviour
     private TextMeshProUGUI floorText;
     [SerializeField]
     private TextMeshProUGUI monsterATKText;
+    [SerializeField]
+    private Sprite[] monsterImgs;
+    [SerializeField]
+    private Image monsterImg;
 
     public float fadeDuration = 1.0f;
     public float delayBeforeFade = 3.0f;
@@ -165,6 +169,7 @@ public class Battle : MonoBehaviour
             currMonsterHP = 0;
             MonsterDead();
             UpdateFloorText();
+            monsterImg.sprite = monsterImgs[floor]; 
         }
         else
         {
