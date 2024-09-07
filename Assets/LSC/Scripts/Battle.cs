@@ -120,7 +120,8 @@ public class Battle : MonoBehaviour
             {
                 for (int i = 0; i < shopManager.scrollCost.Count; i++)
                 {
-                    shopManager.scrollCost[i] *= 2 * ((floor / 5) - 1);
+                    //shopManager.scrollCost[i] *= 2 * ((floor / 5) - 1); 
+                    shopManager.scrollCost[i] *= 4; 
                 }
             }
             battleScene.SetActive(false);
