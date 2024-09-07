@@ -39,6 +39,8 @@ public class Battle : MonoBehaviour
     [SerializeField]
     private GameObject addGoldText;
     [SerializeField]
+    private GameObject heatText;
+    [SerializeField]
     private TextMeshProUGUI floorText;
     [SerializeField]
     private TextMeshProUGUI monsterATKText;
@@ -162,6 +164,9 @@ public class Battle : MonoBehaviour
             double tempGold = Mathf.Abs((float)(tempHP * 10));
             addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString("F0") + "G 획득!";
             addGoldText.SetActive(true);
+            heatText.GetComponent<TMP_Text>().text = "-" + damage.ToString("F0");
+            heatText.SetActive(true);
+            StartCoroutine(HeatTextFadeOutAndDeactivate());
             StartCoroutine(FadeOutAndDeactivate());
             currMonsterHP = 0;
             MonsterDead();
@@ -171,6 +176,27 @@ public class Battle : MonoBehaviour
         {
             playerStats.ChangeHP(-currMonsterATK);
             UpdateMonsterHP();
+            heatText.GetComponent<TMP_Text>().text = "-" + damage.ToString("F0");
+            heatText.SetActive(true);
+            StartCoroutine(HeatTextFadeOutAndDeactivate());
         }
+    }
+
+    IEnumerator HeatTextFadeOutAndDeactivate()
+    {
+        yield return new WaitForSeconds(delayBeforeFade);
+        Color originalColor = heatText.GetComponent<TMP_Text>().color;
+
+        float elapsedTime = 0f;
+        while (elapsedTime < fadeDuration)
+        {
+            elapsedTime += Time.deltaTime;
+            float alpha = Mathf.Lerp(1f, 0f, elapsedTime / fadeDuration);
+            heatText.GetComponent<TMP_Text>().color = new Color(originalColor.r, originalColor.g, originalColor.b, alpha);
+            yield return null;
+        }
+
+        heatText.SetActive(false);
+        heatText.GetComponent<TMP_Text>().color = Color.red;
     }
 }
