@@ -7087,7 +7087,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: "\uC18D\uC131 \uC870\uD569"
+  m_text: "\uC18D\uC131\uC870\uD569"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ec744ddd1b0ce0d4bac2ba9088d89e8a, type: 2}
   m_sharedMaterial: {fileID: 4187552138296602003, guid: ec744ddd1b0ce0d4bac2ba9088d89e8a, type: 2}
@@ -9202,6 +9202,30 @@ PrefabInstance:
       propertyPath: statResultText
       value: 
       objectReference: {fileID: 766779802}
+    - target: {fileID: 3160633115797082867, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
+      propertyPath: statName.Array.data[0]
+      value: "\uB354\uBE14"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3160633115797082867, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
+      propertyPath: statName.Array.data[1]
+      value: "\uD50C\uB7EC\uC2DC"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3160633115797082867, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
+      propertyPath: statName.Array.data[2]
+      value: "\uC2A4\uD2B8\uB808\uC774\uD2B8"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3160633115797082867, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
+      propertyPath: statName.Array.data[3]
+      value: "\uD2B8\uB9AC\uD50C"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3160633115797082867, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
+      propertyPath: statName.Array.data[4]
+      value: "\uC544\uCF00\uC778"
+      objectReference: {fileID: 0}
+    - target: {fileID: 3160633115797082867, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
+      propertyPath: statName.Array.data[5]
+      value: "\uC18D\uC131\uC870\uD569"
+      objectReference: {fileID: 0}
     - target: {fileID: 3753464288946785318, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
       propertyPath: m_Name
       value: Player
