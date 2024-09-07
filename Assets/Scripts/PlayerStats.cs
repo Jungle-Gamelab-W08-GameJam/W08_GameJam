@@ -96,7 +96,7 @@ public class PlayerStats : MonoBehaviour
                 time *= 1.5f;
                 highlight.DOMoveY(highlight.position.y + 55, time).SetEase(Ease.InOutQuad);
 
-                if(i >= 4) // fever enter
+                if(i >= 5) // fever enter
                 {
                     if (!shopManager.onFever) shopManager.EnterFever();
                 }

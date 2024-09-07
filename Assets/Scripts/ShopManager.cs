@@ -52,6 +52,8 @@ public class ShopManager : MonoBehaviour
     [SerializeField]
     private Battle battle;
 
+    private List<int> scrollLeft = new List<int>();
+
     void Start()
     {
         playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
@@ -84,6 +86,15 @@ public class ShopManager : MonoBehaviour
             else
             {
                 scrollCost[stat] += (int)Mathf.Pow(10, (battle.floor / 5) - 1);
+                if (scrollLeft[stat] <= 0)
+                {
+
+                    return;
+                }
+                else
+                {
+                    scrollLeft[stat] -= 1;
+                }
             }
 
             playerStats.ChangeStat(stat);
@@ -177,10 +188,19 @@ public class ShopManager : MonoBehaviour
         bonusText.text = " ";
     }
 
+    private void SetScrollLeft()
+    {
+        for (int i = 0; i < scrollLeft.Count; i++)
+        {
+            scrollLeft[i] = 10;
+        }
+    }
+
     public void OnShopUI()
     {
         shopUI.SetActive(true);
         SetCost();
+        SetScrollLeft();
     }
 
     public void CloseShopUI()
