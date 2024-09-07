@@ -19,7 +19,7 @@ public class ShopManager : MonoBehaviour
 
     public float increaseRate;
     public List<float> successRate = new List<float>();
-    public List<int> scrollCost = new List<int>();
+    public List<long> scrollCost = new List<long>();
     public int hpCost;
 
     private PlayerStats playerStats;
@@ -95,7 +95,7 @@ public class ShopManager : MonoBehaviour
             if (onFever)
             {
                 feverLeft--;
-                feverText.text = "Fever Time! Left Count: ";
+                feverText.text = "피버 타임! 남은 횟수: ";
                 feverText.text += feverLeft.ToString();
                 if (feverLeft == 0) ExitFever();
             }
@@ -129,7 +129,7 @@ public class ShopManager : MonoBehaviour
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < scrollCost.Count; i++)
         {
-            sb.AppendLine((scrollCost[i] * bonusCost).ToString() + " G");
+            sb.AppendLine((scrollCost[i] * bonusCost).ToString() + " 메소");
         }
         costs.text = sb.ToString();
     }
@@ -171,7 +171,7 @@ public class ShopManager : MonoBehaviour
         feverIncreseRate = 1.5f;
         feverSuccessRate = 1.2f;
 
-        feverText.text = "피버 타임! 남은 카운트: ";
+        feverText.text = "피버 타임! 남은 횟수: ";
         feverText.text += feverLeft.ToString();
 
         playerStats.UpdateMulText(99);
