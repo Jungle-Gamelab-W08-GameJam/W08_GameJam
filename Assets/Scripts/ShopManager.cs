@@ -20,7 +20,17 @@ public class ShopManager : MonoBehaviour
     public List<float> increaseRate = new List<float>();
     public List<float> successRate = new List<float>();
     public List<long> scrollCost = new List<long>();
-    public int hpCost;
+
+
+    [Header("HP 구매 관련 변수 목록")]
+    public List<long> hpCostLevelDesign = new List<long>();
+    public long hpCost;
+    public long hpPlusRate;
+    public long hpUpgradeNumber;
+    [SerializeField]
+    private TextMeshProUGUI hpCostText;
+
+    [Header("나머지")]
 
     private PlayerStats playerStats;
 
@@ -70,6 +80,7 @@ public class ShopManager : MonoBehaviour
         SetProb();
         ExitFever();
         ExitBonus();
+        SetHpCost();
     }
 
     public void OnBuyButton(int stat)
@@ -106,7 +117,7 @@ public class ShopManager : MonoBehaviour
                 feverText.text += feverLeft.ToString();
                 if (feverLeft == 0) ExitFever();
             }
-            
+
             playerStats.ChangeStat(stat);
         }
         else
@@ -130,6 +141,29 @@ public class ShopManager : MonoBehaviour
         //}
         playerStats.ChangeHP(playerStats.maxHP);
     }
+
+    public void SetHpCost()
+    {
+        hpUpgradeNumber = 0;
+        hpCost = hpCostLevelDesign[(int)hpUpgradeNumber];
+        hpCostText.text = hpCost + " 메소";
+    }
+
+    public void OnBuyHPButon()
+    {
+        clickSound.Play();
+        if ((playerStats.gold >= hpCost) && (hpUpgradeNumber < (hpCostLevelDesign.Count - 1)))
+        {
+            playerStats.gold -= hpCost;
+            playerStats.UpdateGoldText();
+            playerStats.maxHP += (int)hpPlusRate;
+            hpUpgradeNumber++;
+            hpCost = hpCostLevelDesign[(int)hpUpgradeNumber];
+            hpCostText.text = hpCost + " 메소";
+
+        }
+    }
+
 
     public void SetCost()
     {
