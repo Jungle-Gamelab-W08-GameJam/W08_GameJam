@@ -13,6 +13,10 @@ public class DragController : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     public int cardIndex; // 카드의 인덱스를 추적하기 위한 변수
     public bool isHandCard; // HandCard인지 DrawCard인지를 나타내는 플래그
 
+    public AudioSource audioSource;
+    public AudioClip beginDrag;
+    public AudioClip endDrag;
+
     private void Awake()
     {
         rectTransform = GetComponent<RectTransform>();
@@ -23,6 +27,8 @@ public class DragController : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnBeginDrag(PointerEventData eventData)
     {
+        audioSource.clip = beginDrag;
+        audioSource.Play();
         canvasGroup.alpha = 0.6f;
         canvasGroup.blocksRaycasts = false;
     }
@@ -34,6 +40,8 @@ public class DragController : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnEndDrag(PointerEventData eventData)
     {
+        audioSource.clip = endDrag;
+        audioSource.Play();
         canvasGroup.alpha = 1f;
         canvasGroup.blocksRaycasts = true;
         rectTransform.anchoredPosition = originalPosition;

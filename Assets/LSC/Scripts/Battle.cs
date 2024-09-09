@@ -64,8 +64,12 @@ public class Battle : MonoBehaviour
     public GameObject shopText;
 
     public AudioSource audioSource;
+    public AudioSource clickAudioSource;
     [SerializeField]
     private AudioClip shopBgm;
+
+    public AudioSource attackAudioSource;
+    public AudioSource mesoSound;
 
     public float fadeDuration = 1.0f;
     public float delayBeforeFade = 3.0f;
@@ -98,10 +102,12 @@ public class Battle : MonoBehaviour
 
     public void OnBattle()
     {
+        clickAudioSource.Play();
         battleButton.interactable = false;
         damage = checkCards.damage;
         drawController.PlayerAttackAnimation();
         StartCoroutine(HandleBattleAfterAnimation());
+        StartCoroutine(attackSound());
     }
 
     public void UpdateMonsterHP()
@@ -136,6 +142,7 @@ public class Battle : MonoBehaviour
         monsterMaxHP = monsterHPs[floor];
         currMonsterHP = monsterMaxHP;
         currMonsterATK = monsterATKs[floor];
+        mesoSound.Play();
         //drawController.ClickFightButton();
 
         if (floor % 5 == 1 && floor != 1)
@@ -176,6 +183,13 @@ public class Battle : MonoBehaviour
 
         addGoldText.SetActive(false);
         addGoldText.GetComponent<TMP_Text>().color = Color.yellow;
+    }
+    IEnumerator attackSound()
+    {
+        yield return new WaitForSeconds(0.6f);
+        attackAudioSource.Play();
+        yield return new WaitForSeconds(0.65f);
+        attackAudioSource.Play();
     }
     IEnumerator HandleBattleAfterAnimation()
     {
