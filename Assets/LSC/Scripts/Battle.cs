@@ -76,6 +76,7 @@ public class Battle : MonoBehaviour
 
     double damage;
 
+
     void Start()
     {
         floor = 1;

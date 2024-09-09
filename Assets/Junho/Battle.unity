@@ -2353,15 +2353,15 @@ RectTransform:
   m_GameObject: {fileID: 425999634}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: -1, y: 1, z: 1}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1102872547}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -364, y: 15}
-  m_SizeDelta: {x: 613.2575, y: 967.3005}
+  m_AnchoredPosition: {x: -413, y: 9}
+  m_SizeDelta: {x: 167.4081, y: 298.3994}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &425999636
 MonoBehaviour:
@@ -2383,7 +2383,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d3554d6f5e6c2b848b44252b1351c727, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 057b848884eb74743a883543f9f75d49, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3811,7 +3811,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 699863c5cfe171444a414d0650fa0148, type: 3}
+  m_Sprite: {fileID: 21300000, guid: ee4d527a9e1679f4c8899334738d2330, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -13081,6 +13081,20 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a33913e245957ad49bef7639dab0cd01, type: 3}
   clickSound: {fileID: 2111509017}
   scrollStartSound: {fileID: 2111509018}
+  players:
+  - {fileID: 21300000, guid: 057b848884eb74743a883543f9f75d49, type: 3}
+  - {fileID: 21300000, guid: b7225bcb9fe65874586e50919f373e86, type: 3}
+  - {fileID: 21300000, guid: 4bdfaa8cad4dee1449aed749cd08b766, type: 3}
+  - {fileID: 21300000, guid: 33513bc5706c44742ba0c482ed9f22e6, type: 3}
+  - {fileID: 21300000, guid: d4b08304ba413bd42bd424b282efa638, type: 3}
+  playerImg: {fileID: 586812397}
+  weaponImgs:
+  - {fileID: 21300000, guid: ee4d527a9e1679f4c8899334738d2330, type: 3}
+  - {fileID: 21300000, guid: 64bfb0b3b6ffac247b5f551f870bae55, type: 3}
+  - {fileID: 21300000, guid: a5600188ddc80234e917a5b825a59eb1, type: 3}
+  - {fileID: 21300000, guid: 1ca24adc4ffdcf44aa03f4c43daa4f01, type: 3}
+  - {fileID: 21300000, guid: 8cb9985bb5ebb574cb0536ec587c485e, type: 3}
+  weapon: {fileID: 0}
 --- !u!4 &2111509014
 Transform:
   m_ObjectHideFlags: 0

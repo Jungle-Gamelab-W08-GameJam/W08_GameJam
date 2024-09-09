@@ -73,6 +73,16 @@ public class ShopManager : MonoBehaviour
     [SerializeField]
     private AudioSource scrollStartSound;
 
+    [SerializeField]
+    private Sprite[] players;
+    [SerializeField]
+    private Image playerImg;
+
+    [SerializeField]
+    private Sprite[] weaponImgs;
+    [SerializeField]
+    private Image weapon;
+
     void Start()
     {
         playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
@@ -274,5 +284,13 @@ public class ShopManager : MonoBehaviour
         battle.shopText.SetActive(false);
         shopUI.SetActive(false);
         battleUI.SetActive(true);
+        if(battle.floor % 10 == 1)
+        {
+            if(battle.floor/10 != 0)
+            {
+                playerImg.sprite = players[battle.floor / 10];
+                weapon.sprite = weaponImgs[battle.floor / 10];
+            }
+        }
     }
 }
