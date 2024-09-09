@@ -607,7 +607,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 140, y: 233}
+  m_AnchoredPosition: {x: 0, y: 233}
   m_SizeDelta: {x: 885.8044, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1201756533
@@ -632,8 +632,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uC900\uBE44\uAC00 \uBD80\uC871\uD588\uC5B4..."
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 78de28b1cd4b46b43beec42bd6412fe5, type: 2}
-  m_sharedMaterial: {fileID: 1832332630359341698, guid: 78de28b1cd4b46b43beec42bd6412fe5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e360bfee293bca344ac403bfb910fa1b, type: 2}
+  m_sharedMaterial: {fileID: -7450270006750401046, guid: e360bfee293bca344ac403bfb910fa1b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -664,8 +664,8 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -891,7 +891,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 243, y: 426}
+  m_AnchoredPosition: {x: 0, y: 426}
   m_SizeDelta: {x: 885.8044, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1652330814
@@ -916,8 +916,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uD328 \uBC30"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 78de28b1cd4b46b43beec42bd6412fe5, type: 2}
-  m_sharedMaterial: {fileID: 1832332630359341698, guid: 78de28b1cd4b46b43beec42bd6412fe5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: fdc3d24f2f8a02b49b04c6ea8bb31cab, type: 2}
+  m_sharedMaterial: {fileID: 1212993469529001888, guid: fdc3d24f2f8a02b49b04c6ea8bb31cab, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -948,7 +948,7 @@ MonoBehaviour:
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 256
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -1050,8 +1050,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: "\uACC4 \uC18D"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 78de28b1cd4b46b43beec42bd6412fe5, type: 2}
-  m_sharedMaterial: {fileID: 1832332630359341698, guid: 78de28b1cd4b46b43beec42bd6412fe5, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: e360bfee293bca344ac403bfb910fa1b, type: 2}
+  m_sharedMaterial: {fileID: -7450270006750401046, guid: e360bfee293bca344ac403bfb910fa1b, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
