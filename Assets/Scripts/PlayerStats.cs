@@ -47,6 +47,12 @@ public class PlayerStats : MonoBehaviour
     private TMP_Text ShopGoldText;
 
     private ShopManager shopManager;
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip successClip;
+    [SerializeField]
+    private AudioClip failedClip;
 
     void Start()
     {
@@ -89,6 +95,7 @@ public class PlayerStats : MonoBehaviour
 
             if (Random.Range(1, 101) <= successRate[i])
             {
+                audioSource.PlayOneShot(successClip);
                 sb.AppendLine("<color=\"blue\">성공!</color>");
                 resultText.text = sb.ToString();
                 if (i == 0) stats[code] *= 1 + (increaseRate / 100);
@@ -112,6 +119,7 @@ public class PlayerStats : MonoBehaviour
             }
             else
             {
+                audioSource.PlayOneShot(failedClip);
                 sb.Insert(0, "<color=\"red\">실패...</color>\n");
                 resultText.text = sb.ToString();
                 statResultText.text = statBefore + " >> " + stats[code].ToString("F2");
