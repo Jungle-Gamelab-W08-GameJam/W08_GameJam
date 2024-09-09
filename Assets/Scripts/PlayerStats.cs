@@ -105,7 +105,7 @@ public class PlayerStats : MonoBehaviour
                 time *= 1.5f;
                 highlight.DOMoveY(highlight.position.y + 55, time).SetEase(Ease.InOutQuad);
 
-                if(i >= 6 && !shopManager.onFever) // fever enter
+                if (i >= 6 && !shopManager.onFever) // fever enter
                 {
                     shopManager.EnterFever();
                     UpdateMulText(code, i);
@@ -216,6 +216,11 @@ public class PlayerStats : MonoBehaviour
     public void GetGold(double getGold)
     {
         gold += (long)getGold;
+        if (gold <= 0)
+        {
+            gold = 0;
+
+        }
         UpdateGoldText();
     }
 
