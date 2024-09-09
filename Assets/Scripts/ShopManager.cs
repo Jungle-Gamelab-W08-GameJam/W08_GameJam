@@ -165,7 +165,7 @@ public class ShopManager : MonoBehaviour
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < scrollLeft.Count; i++)
         {
-            sb.AppendLine((scrollLeft[i]).ToString() + " ");
+            sb.AppendLine("x"+(scrollLeft[i]).ToString() + " ");
         }
         scrollLeftText.text = sb.ToString();
     }
