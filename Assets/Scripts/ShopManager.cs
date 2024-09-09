@@ -105,7 +105,8 @@ public class ShopManager : MonoBehaviour
                     SetScrollLeftText();
                     playerStats.gold -= scrollCost[stat] * bonusCost;
                     playerStats.UpdateGoldText();
-                    scrollCost[stat] += (int)Mathf.Pow(10, (battle.floor / 5) - 1);
+                    double temp = scrollCost[stat] * 1.3f;
+                    scrollCost[stat] = (long)temp;
                 }
             }
 

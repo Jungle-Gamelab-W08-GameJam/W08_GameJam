@@ -76,6 +76,7 @@ public class Battle : MonoBehaviour
     public float delayBeforeFade = 3.0f;
 
     double damage;
+    long cost;
 
     void Start()
     {
@@ -87,6 +88,8 @@ public class Battle : MonoBehaviour
         OnButtons();
         UpdateMonsterHP();
         UpdateFloorText();
+
+        cost = shopManager.scrollCost[0];
     }
 
     private void Update()
@@ -150,10 +153,11 @@ public class Battle : MonoBehaviour
         {
             if (floor != 6)
             {
+                //cost *= (long)Mathf.Pow(10, (floor / 5) - 1);
+                cost *= 20;
                 for (int i = 0; i < shopManager.scrollCost.Count; i++)
                 {
-                    //shopManager.scrollCost[i] *= 2 * ((floor / 5) - 1); 
-                    shopManager.scrollCost[i] *= (long)Mathf.Pow(10, (floor / 5) - 1);
+                    shopManager.scrollCost[i] = cost;
                 }
             }
             audioSource.clip = shopBgm;
@@ -203,16 +207,10 @@ public class Battle : MonoBehaviour
         {
             double tempHP = currMonsterHP;
             double tempGold;
-            if (floor > 5 && Mathf.Abs((float)(tempHP * 10)) > shopManager.scrollCost.Max() * Mathf.Pow(10, (floor / 5) - 1) * 10)
-            {
-                tempGold = (double)shopManager.scrollCost.Max() * Mathf.Pow(10, (floor / 5) - 1) * 10;
-                playerStats.GetGold(tempGold);
-            } 
-            else
-            {
-                tempGold = Mathf.Abs((float)(tempHP * 10));
-                playerStats.GetGold(Mathf.Abs((float)(tempHP * 10)));
-            }
+
+            tempGold = Mathf.Pow(10, (int)Math.Ceiling((double)floor / 5));
+            tempGold += Mathf.Abs((float)(tempHP * 10));
+            playerStats.GetGold(tempGold);
             addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString("F0") + "메소 획득!";
             addGoldText.SetActive(true);
             heatText.GetComponent<TMP_Text>().text = "-" + damage.ToString("F0");
