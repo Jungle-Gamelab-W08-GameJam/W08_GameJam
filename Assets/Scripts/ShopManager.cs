@@ -58,6 +58,11 @@ public class ShopManager : MonoBehaviour
     [SerializeField]
     private AudioClip[] bgms;
 
+    [SerializeField]
+    private AudioSource clickSound;
+    [SerializeField]
+    private AudioSource scrollStartSound;
+
     void Start()
     {
         playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
@@ -69,8 +74,10 @@ public class ShopManager : MonoBehaviour
 
     public void OnBuyButton(int stat)
     {
+        clickSound.Play();
         if (playerStats.gold >= scrollCost[stat] * bonusCost)
-        { 
+        {
+            scrollStartSound.Play();
             if (onBonus)
             {
                 bonusLeft--;
@@ -221,6 +228,7 @@ public class ShopManager : MonoBehaviour
 
     public void CloseShopUI()
     {
+        clickSound.Play();
         SetCost();
         SetProb();
         ExitFever();
