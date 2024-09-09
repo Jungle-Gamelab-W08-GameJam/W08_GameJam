@@ -1,0 +1,72 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3753464288946785318
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 4845437258395214873}
+  - component: {fileID: 3160633115797082867}
+  m_Layer: 0
+  m_Name: Player
+  m_TagString: Player
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &4845437258395214873
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3753464288946785318}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 881.3471, y: 534.1775, z: -0.24163859}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3160633115797082867
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3753464288946785318}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43e0ee7543ab21d4c963cf0e0cd8aee9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currHP: 100
+  maxHP: 100
+  statName:
+  - Double
+  - Flush
+  - Straight
+  - Triple
+  - Arcane
+  - Color
+  stats:
+  - 2
+  - 3
+  - 5
+  - 7
+  - 2.5
+  - 3
+  statText: {fileID: 0}
+  goldText: {fileID: 0}
+  button: {fileID: 0}
+  gold: 0
+  upgradeText: {fileID: 0}
+  resultText: {fileID: 0}
+  mulText: {fileID: 0}
+  hpText: {fileID: 0}
+  statResultText: {fileID: 0}
+  highlight: {fileID: 0}

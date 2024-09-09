@@ -1,0 +1,225 @@
+using DG.Tweening;
+using System.Collections;
+using System.Collections.Generic;
+using System.Drawing;
+using System.Text;
+using TMPro;
+using UnityEditor;
+using UnityEngine;
+using UnityEngine.SceneManagement;
+using UnityEngine.UI;
+
+public class PlayerStats : MonoBehaviour
+{
+    public float currHP;
+    public int maxHP;
+
+    [SerializeField]
+    private List<string> statName = new List<string>();
+    [SerializeField]
+    private List<float> stats = new List<float>();
+    [SerializeField]
+    private TextMeshProUGUI statText;
+    [SerializeField]
+    private TextMeshProUGUI goldText;
+    [SerializeField]
+    private Transform button;
+
+    public long gold;
+
+    [SerializeField]
+    private TextMeshProUGUI upgradeText;
+    [SerializeField]
+    private TextMeshProUGUI resultText;
+    [SerializeField]
+    private TextMeshProUGUI mulText;
+    [SerializeField]
+    private TextMeshProUGUI hpText;
+    [SerializeField]
+    private TextMeshProUGUI statResultText;
+    [SerializeField]
+    private Transform highlight;
+    [SerializeField]
+    private Transform image;
+    [SerializeField]
+    private Image HPimage;
+    [SerializeField]
+    private TMP_Text ShopGoldText;
+
+    private ShopManager shopManager;
+    [SerializeField]
+    private AudioSource audioSource;
+    [SerializeField]
+    private AudioClip successClip;
+    [SerializeField]
+    private AudioClip failedClip;
+
+    void Start()
+    {
+        currHP = maxHP;
+        shopManager = GameObject.FindWithTag("Shop").GetComponent<ShopManager>();
+        Clear();
+    }
+
+    public void GetButton(GameObject obj)
+    {
+        button = obj.transform.parent;
+    }
+
+    public void ChangeStat(int code)
+    {
+        float increaseRate = shopManager.increaseRate * shopManager.feverIncreseRate;
+        List<float> successRate = shopManager.successRate.ConvertAll(x => x * shopManager.feverSuccessRate);
+
+        resultText.text = "";
+        highlight.position = new Vector3(image.position.x, 218, 0);
+        statResultText.text = "";
+
+        StartCoroutine(TryUpgrade(code, increaseRate, successRate));
+    }
+
+    IEnumerator TryUpgrade(int code, float increaseRate, List<float> successRate)
+    {
+        ButtonDisable(false);
+        UpdateMulText(99);
+        UpdateStatText(99);
+        StringBuilder sb = new StringBuilder();
+
+        string statBefore = stats[code].ToString("F2");
+        float time = 0.1f;
+        for (int i = 0; i < 10; i++)
+        {
+            StringBuilder temp = new StringBuilder();
+            temp.Append("업그레이드 ").Append(statName[code]).Append("(").Append(successRate[i].ToString()).Append("%)");
+            upgradeText.text = temp.ToString();
+
+            if (Random.Range(1, 101) <= successRate[i])
+            {
+                audioSource.PlayOneShot(successClip);
+                sb.AppendLine("<color=\"blue\">성공!</color>");
+                resultText.text = sb.ToString();
+                if (i == 0) stats[code] *= 1 + (increaseRate / 100);
+                else stats[code] *= (Mathf.Pow(1 + (increaseRate / 100), Mathf.Pow(2, i - 1)));
+                UpdateMulText(i);
+
+                time *= 1.5f;
+                highlight.DOMoveY(highlight.position.y + 55, time).SetEase(Ease.InOutQuad);
+
+                if(i >= 5) // fever enter
+                {
+                    if (!shopManager.onFever) shopManager.EnterFever();
+                }
+
+                if (Random.Range(1, 101) <= 5) // bonus enter
+                {
+                    shopManager.EnterBonus();
+                }
+
+                yield return new WaitForSeconds(time);
+            }
+            else
+            {
+                audioSource.PlayOneShot(failedClip);
+                sb.Insert(0, "<color=\"red\">실패...</color>\n");
+                resultText.text = sb.ToString();
+                statResultText.text = statBefore + " >> " + stats[code].ToString("F2");
+                UpdateStatText(code);
+                break;
+            }
+        }
+        ButtonDisable(true);
+        shopManager.SetCost();
+    }
+
+    private void ButtonDisable(bool flag)
+    {
+        foreach (Transform sibling in button)
+        {
+            Button siblingButton = sibling.GetComponent<Button>();
+            siblingButton.interactable = flag;
+        }
+    }
+
+    public void UpdateStatText(int code)
+    {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < stats.Count; i++)
+        {
+            if (i == code)
+            {
+                sb.Append("<color=\"green\">").Append(statName[i]).Append(": ").Append(stats[i].ToString("F2")).Append("x</color>\n");
+            }
+            else sb.Append(statName[i]).Append(": ").Append(stats[i].ToString("F2")).Append("x\n");
+        }
+        statText.text = sb.ToString();
+    }
+
+    public void UpdateGoldText()
+    {
+        goldText.text = gold.ToString("F0");
+        goldText.text += " 메소";
+
+        ShopGoldText.text = gold.ToString("F0");
+        ShopGoldText.text += " 메소";
+    }
+
+    public void UpdateMulText(int code)
+    {
+        int[] list = { 16213, 1177, 257, 89, 37, 17, 8, 4, 2, 1 };
+        mulText.text = "";
+        for (int i = 0; i < 10; i++)
+        {
+            if (i == 9 - code)
+            {
+                mulText.text += $"<color=\"green\">{list[i] * shopManager.feverIncreseRate} %</color>\n";
+            }
+            else mulText.text += $"{list[i] * shopManager.feverIncreseRate} %\n";
+        }
+    }
+
+    public void UpdateHPText()
+    {
+        /*
+        hpText.text = "HP: ";
+        hpText.text += currHP.ToString();
+        hpText.text += " / ";
+        hpText.text += maxHP.ToString();
+        HPimage.fillAmount = currHP / maxHP;
+        */
+    }
+
+    public void Clear()
+    {
+        UpdateStatText(99);
+        UpdateGoldText();
+        UpdateMulText(99);
+        UpdateHPText();
+        //highlight.position = new Vector3(image.position.x, 218, 0);
+        upgradeText.text = " ";
+        resultText.text = " ";
+        statResultText.text = " ";
+    }
+
+    public List<float> GetStats()
+    {
+        return stats;
+    }
+
+    public void GetGold(double getGold)
+    {
+        gold += (long)getGold;
+        UpdateGoldText();
+    }
+
+    public void ChangeHP(int changeHP)
+    {
+        currHP = Mathf.Min(currHP + changeHP, maxHP);
+        UpdateHPText();
+        if (currHP <= 0)
+        {
+            Debug.Log("Game Over");
+            // gameOver
+            SceneManager.LoadScene(2);
+        }
+    }
+}
