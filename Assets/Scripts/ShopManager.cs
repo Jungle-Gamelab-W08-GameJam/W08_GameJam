@@ -17,7 +17,7 @@ public class ShopManager : MonoBehaviour
         5 Color
     */
 
-    public float increaseRate;
+    public List<float> increaseRate = new List<float>();
     public List<float> successRate = new List<float>();
     public List<long> scrollCost = new List<long>();
     public int hpCost;
@@ -85,7 +85,7 @@ public class ShopManager : MonoBehaviour
             }
             else
             {
-                scrollCost[stat] += (int)Mathf.Pow(10, (battle.floor / 5) - 1);
+                scrollCost[stat] += (int)Mathf.Pow(5, (battle.floor / 5) - 1);
                 if (scrollLeft[stat] <= 0)
                 {
                     return;
@@ -181,7 +181,6 @@ public class ShopManager : MonoBehaviour
         feverText.text = "피버 타임! 남은 횟수: ";
         feverText.text += feverLeft.ToString();
 
-        playerStats.UpdateMulText(99);
         SetProb();
     }
 
@@ -236,7 +235,7 @@ public class ShopManager : MonoBehaviour
         OnHPButon();
         battle.audioSource.clip = bgms[battle.floor / 5];
         battle.audioSource.Play();
-        playerStats.UpdateMulText(99);
+        //playerStats.UpdateMulText(99);
         playerStats.UpdateHPText();
         battle.coinText.SetActive(true);
         battle.shopText.SetActive(false);
