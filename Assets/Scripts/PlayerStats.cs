@@ -54,6 +54,9 @@ public class PlayerStats : MonoBehaviour
     [SerializeField]
     private AudioClip failedClip;
 
+    [SerializeField]
+    private GameObject[] gameObjects;
+
     void Start()
     {
         currHP = maxHP;
@@ -97,6 +100,8 @@ public class PlayerStats : MonoBehaviour
             {
                 audioSource.PlayOneShot(successClip);
                 sb.AppendLine("<color=\"blue\">성공!</color>");
+                GameObject tempGameObg = Instantiate(gameObjects[0], GameObject.Find("ShopCanvas").transform);
+                tempGameObg.transform.localPosition = new Vector2(33f, -380.4f + (55 * i));
                 resultText.text = sb.ToString();
                 if (i == 0) stats[code] *= 1 + (increaseRate / 100);
                 else stats[code] *= (Mathf.Pow(1 + (increaseRate / 100), Mathf.Pow(2, i - 1)));
@@ -122,6 +127,8 @@ public class PlayerStats : MonoBehaviour
             {
                 audioSource.PlayOneShot(failedClip);
                 sb.Insert(0, "<color=\"red\">실패...</color>\n");
+                GameObject tempGameObg = Instantiate(gameObjects[1], GameObject.Find("ShopCanvas").transform);
+                tempGameObg.transform.localPosition = new Vector2(33f, -380.4f + (55 * i));
                 resultText.text = sb.ToString();
                 statResultText.text = statBefore + " >> " + stats[code].ToString("F2");
                 UpdateStatText(code);

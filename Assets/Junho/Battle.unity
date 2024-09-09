@@ -1687,8 +1687,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: -767, y: 519}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: -767, y: 526.1}
+  m_SizeDelta: {x: 642.7984, y: 57.1}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &349879085
 MonoBehaviour:
@@ -1745,7 +1745,7 @@ MonoBehaviour:
   m_fontSizeMax: 72
   m_fontStyle: 0
   m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -1797,7 +1797,7 @@ GameObject:
   m_Component:
   - component: {fileID: 354634643}
   m_Layer: 5
-  m_Name: ShopCanvas
+  m_Name: ShopCanvas1
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -2900,7 +2900,7 @@ GameObject:
   - component: {fileID: 499234778}
   m_Layer: 5
   m_Name: Image (2)
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -3561,7 +3561,7 @@ GameObject:
   - component: {fileID: 553768040}
   m_Layer: 5
   m_Name: Image (4)
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4590,7 +4590,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: -36.23651, z: 0, w: -491.6415}
+  m_margin: {x: 0, y: -36.23651, z: 43.49298, w: -491.6415}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -4876,8 +4876,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: -41, y: 351}
-  m_SizeDelta: {x: 321.4713, y: 160.42847}
+  m_AnchoredPosition: {x: 0, y: 346.89}
+  m_SizeDelta: {x: 281.24, y: 183.4}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &755450980
 MonoBehaviour:
@@ -4926,8 +4926,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 36
-  m_fontSizeBase: 36
+  m_fontSize: 25
+  m_fontSizeBase: 25
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -6977,7 +6977,7 @@ GameObject:
   - component: {fileID: 1049379915}
   m_Layer: 5
   m_Name: Image (1)
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -10803,7 +10803,7 @@ GameObject:
   - component: {fileID: 1609133540}
   m_Layer: 5
   m_Name: Image (3)
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -12434,6 +12434,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 766779802}
     - target: {fileID: 3160633115797082867, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
+      propertyPath: gameObjects.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3160633115797082867, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
       propertyPath: statName.Array.data[0]
       value: "\uB354\uBE14"
       objectReference: {fileID: 0}
@@ -12457,6 +12461,14 @@ PrefabInstance:
       propertyPath: statName.Array.data[5]
       value: "\uC18D\uC131\uC870\uD569"
       objectReference: {fileID: 0}
+    - target: {fileID: 3160633115797082867, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
+      propertyPath: gameObjects.Array.data[0]
+      value: 
+      objectReference: {fileID: 1769632724773507569, guid: 57cdac0f51bd0b1478f6edc13b95e51c, type: 3}
+    - target: {fileID: 3160633115797082867, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
+      propertyPath: gameObjects.Array.data[1]
+      value: 
+      objectReference: {fileID: 121470667538850972, guid: 89c28868242399b47aaeec04533442d3, type: 3}
     - target: {fileID: 3753464288946785318, guid: 1b7534377dcbe124da03c55d46f82424, type: 3}
       propertyPath: m_Name
       value: Player
@@ -12657,7 +12669,7 @@ GameObject:
   - component: {fileID: 2052794041}
   m_Layer: 5
   m_Name: Image (5)
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13004,7 +13016,7 @@ GameObject:
   - component: {fileID: 2081306465}
   m_Layer: 5
   m_Name: Image
-  m_TagString: Untagged
+  m_TagString: Button
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -13656,8 +13668,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 1149, y: 497}
-  m_SizeDelta: {x: 321.4713, y: 160.42847}
+  m_AnchoredPosition: {x: 1149, y: 466.3871}
+  m_SizeDelta: {x: 321.4713, y: 221.6543}
   m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &2115803666
 MonoBehaviour:
