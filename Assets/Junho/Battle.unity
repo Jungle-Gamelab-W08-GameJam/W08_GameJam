@@ -9882,7 +9882,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 198, y: 195.99998}
+  m_AnchoredPosition: {x: 106, y: 195.99998}
   m_SizeDelta: {x: 160, y: 30}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1555346634
@@ -9939,7 +9939,7 @@ MonoBehaviour:
   m_fontSizeMin: 0
   m_fontSizeMax: 0
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
+  m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -12504,7 +12504,7 @@ MonoBehaviour:
   battleUI: {fileID: 433465920}
   battle: {fileID: 140111321}
   scrollLeftText: {fileID: 988722133}
-  scrollLeft: 140000001400000014000000140000001400000014000000
+  scrollLeft: 0a0000000a0000000a0000000a0000000a0000000a000000
   bgms:
   - {fileID: 8300000, guid: 6d199189da8f85d45a9836c9e3566b69, type: 3}
   - {fileID: 8300000, guid: 6c1b35cb7516d10448c503e2354d29ab, type: 3}
