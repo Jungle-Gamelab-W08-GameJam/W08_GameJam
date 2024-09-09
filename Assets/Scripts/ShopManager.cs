@@ -85,7 +85,6 @@ public class ShopManager : MonoBehaviour
 
     public void OnBuyButton(int stat)
     {
-        clickSound.Play();
         if (playerStats.gold >= scrollCost[stat] * bonusCost)
         {
             scrollStartSound.Play();
@@ -96,7 +95,6 @@ public class ShopManager : MonoBehaviour
             }
             else
             {
-                scrollCost[stat] += (int)Mathf.Pow(5, (battle.floor / 5) - 1);
                 if (scrollLeft[stat] <= 0)
                 {
                     return;
@@ -107,6 +105,7 @@ public class ShopManager : MonoBehaviour
                     SetScrollLeftText();
                     playerStats.gold -= scrollCost[stat] * bonusCost;
                     playerStats.UpdateGoldText();
+                    scrollCost[stat] += (int)Mathf.Pow(5, (battle.floor / 5) - 1);
                 }
             }
 
@@ -117,7 +116,7 @@ public class ShopManager : MonoBehaviour
                 feverText.text += feverLeft.ToString();
                 if (feverLeft == 0) ExitFever();
             }
-
+            clickSound.Play();
             playerStats.ChangeStat(stat);
         }
         else
