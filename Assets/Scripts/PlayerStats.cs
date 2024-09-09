@@ -116,7 +116,7 @@ public class PlayerStats : MonoBehaviour
                     UpdateMulText(code, i);
                 }
 
-                if (Random.Range(1, 101) <= 5) // bonus enter
+                if (Random.Range(1, 101) <= 1) // bonus enter
                 {
                     shopManager.EnterBonus();
                 }

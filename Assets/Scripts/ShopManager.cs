@@ -115,7 +115,7 @@ public class ShopManager : MonoBehaviour
                     SetScrollLeftText();
                     playerStats.gold -= scrollCost[stat] * bonusCost;
                     playerStats.UpdateGoldText();
-                    double temp = scrollCost[stat] * 1.3f;
+                    double temp = scrollCost[stat] * 1.2f;
                     scrollCost[stat] = (long)temp;
                 }
             }
@@ -289,6 +289,7 @@ public class ShopManager : MonoBehaviour
         {
             if(battle.floor/10 != 0)
             {
+                Debug.Log(battle.floor / 10);
                 playerImg.sprite = players[battle.floor / 10];
                 weapon.sprite = weaponImgs[battle.floor / 10];
             }
