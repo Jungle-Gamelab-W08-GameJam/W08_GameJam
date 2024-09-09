@@ -3,26 +3,17 @@ using UnityEngine.SceneManagement;
 
 public class TitleController : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
+    public AudioSource audioSource;
 
     public void StarGameButton()
     {
+        audioSource.Play();
         SceneManager.LoadScene(1);
-
     }
 
     public void ExitGameButton()
     {
+        audioSource.Play();
         Application.Quit();
     }
 }
