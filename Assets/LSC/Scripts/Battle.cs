@@ -5,6 +5,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System.Linq;
 
 
 public class Battle : MonoBehaviour
@@ -152,7 +153,7 @@ public class Battle : MonoBehaviour
                 for (int i = 0; i < shopManager.scrollCost.Count; i++)
                 {
                     //shopManager.scrollCost[i] *= 2 * ((floor / 5) - 1); 
-                    shopManager.scrollCost[i] *= 5; 
+                    shopManager.scrollCost[i] *= (long)Mathf.Pow(10, (floor / 5) - 1);
                 }
             }
             audioSource.clip = shopBgm;
@@ -201,8 +202,17 @@ public class Battle : MonoBehaviour
         if (currMonsterHP <= 0)
         {
             double tempHP = currMonsterHP;
-            playerStats.GetGold(Mathf.Abs((float)(tempHP * 10)));
-            double tempGold = Mathf.Abs((float)(tempHP * 10));
+            double tempGold;
+            if (floor > 5 && Mathf.Abs((float)(tempHP * 10)) > shopManager.scrollCost.Max() * Mathf.Pow(10, (floor / 5) - 1) * 10)
+            {
+                tempGold = (double)shopManager.scrollCost.Max() * Mathf.Pow(10, (floor / 5) - 1) * 10;
+                playerStats.GetGold(tempGold);
+            } 
+            else
+            {
+                tempGold = Mathf.Abs((float)(tempHP * 10));
+                playerStats.GetGold(Mathf.Abs((float)(tempHP * 10)));
+            }
             addGoldText.GetComponent<TMP_Text>().text = tempGold.ToString("F0") + "메소 획득!";
             addGoldText.SetActive(true);
             heatText.GetComponent<TMP_Text>().text = "-" + damage.ToString("F0");
