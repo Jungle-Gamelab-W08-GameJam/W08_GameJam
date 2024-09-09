@@ -12580,7 +12580,7 @@ MonoBehaviour:
   battleUI: {fileID: 433465920}
   battle: {fileID: 140111321}
   scrollLeftText: {fileID: 988722133}
-  scrollLeft: 140000001400000014000000140000001400000014000000
+  scrollLeft: 0a0000000a0000000a0000000a0000000a0000000a000000
   bgms:
   - {fileID: 8300000, guid: 6d199189da8f85d45a9836c9e3566b69, type: 3}
   - {fileID: 8300000, guid: 6c1b35cb7516d10448c503e2354d29ab, type: 3}
