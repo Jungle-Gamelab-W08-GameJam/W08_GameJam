@@ -49,9 +49,13 @@ public class Battle : MonoBehaviour
     [SerializeField]
     private Sprite[] backgroundImgs;
     [SerializeField]
+    private Sprite[] battleImgs;
+    [SerializeField]
     private Image monsterImg;
     [SerializeField]
     private Image backgroundImg;
+    [SerializeField]
+    private Image battleImg;
 
     [SerializeField]
     private TextMeshProUGUI currHPText;
@@ -196,6 +200,7 @@ public class Battle : MonoBehaviour
             UpdateFloorText();
             monsterImg.sprite = monsterImgs[floor];
             backgroundImg.sprite = backgroundImgs[(floor - 1) / 5];
+            battleImg.sprite = battleImgs[(floor - 1) / 5];
         }
         else
         {
