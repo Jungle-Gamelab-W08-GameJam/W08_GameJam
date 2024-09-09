@@ -160,7 +160,7 @@ public class ShopManager : MonoBehaviour
             hpUpgradeNumber++;
             hpCost = hpCostLevelDesign[(int)hpUpgradeNumber];
             hpCostText.text = hpCost + " 메소";
-
+            battle.UpdatePlayerHP();
         }
     }
 
