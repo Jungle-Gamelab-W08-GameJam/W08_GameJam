@@ -47,7 +47,11 @@ public class Battle : MonoBehaviour
     [SerializeField]
     private Sprite[] monsterImgs;
     [SerializeField]
+    private Sprite[] backgroundImgs;
+    [SerializeField]
     private Image monsterImg;
+    [SerializeField]
+    private Image backgroundImg;
 
     [SerializeField]
     private TextMeshProUGUI currHPText;
@@ -137,7 +141,7 @@ public class Battle : MonoBehaviour
                 for (int i = 0; i < shopManager.scrollCost.Count; i++)
                 {
                     //shopManager.scrollCost[i] *= 2 * ((floor / 5) - 1); 
-                    shopManager.scrollCost[i] *= 5; 
+                    shopManager.scrollCost[i] *= 5;
                 }
             }
             audioSource.clip = shopBgm;
@@ -169,7 +173,6 @@ public class Battle : MonoBehaviour
         addGoldText.SetActive(false);
         addGoldText.GetComponent<TMP_Text>().color = Color.yellow;
     }
-
     IEnumerator HandleBattleAfterAnimation()
     {
         yield return new WaitForSeconds(1.8f);
@@ -192,6 +195,7 @@ public class Battle : MonoBehaviour
             MonsterDead();
             UpdateFloorText();
             monsterImg.sprite = monsterImgs[floor];
+            backgroundImg.sprite = backgroundImgs[(floor - 1) / 5];
         }
         else
         {
