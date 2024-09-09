@@ -40,11 +40,11 @@ public class CheckCards : MonoBehaviour
         bool[] check = new bool[6] { false, false, false, false, false, false };
         List<float> tempStats = playerStats.GetStats();
 
-        for(int i = 0; i<6; i++)
+        for (int i = 0; i < 6; i++)
         {
-            if(tempStats[i]%1 == 0)
+            if (tempStats[i] % 1 == 0)
             {
-                texts[i].text = "x"+tempStats[i].ToString("F0");
+                texts[i].text = "x" + tempStats[i].ToString("F0");
             }
             else
             {
@@ -64,7 +64,7 @@ public class CheckCards : MonoBehaviour
         // Attribute
         if (AllSame(array, 0))
         {
-            check[5] = true;    
+            check[5] = true;
             multiplier *= tempStats[5];
         }
 
@@ -96,7 +96,7 @@ public class CheckCards : MonoBehaviour
             multiplier *= tempStats[0];
         }
 
-        for(int i = 0; i< 6; i++)
+        for (int i = 0; i < 6; i++)
         {
             Color color = images[i].color;
             Color txtColor = texts[i].color;
@@ -116,23 +116,23 @@ public class CheckCards : MonoBehaviour
         }
 
         damage = multiplier;
-        damageText.text ="ÇöÀç µ¥¹ÌÁö\n"+multiplier.ToString("F2");
+        damageText.text = "í˜„ìž¬ ë°ë¯¸ì§€\n" + multiplier.ToString("F1");
     }
 
     bool ContainsAll(char[,] array, int index)
     {
-        bool[] tempChk = new bool[3] {false, false, false};
-        for(int i = 0; i<3; i++)
+        bool[] tempChk = new bool[3] { false, false, false };
+        for (int i = 0; i < 3; i++)
         {
-            switch(array[i, index])
+            switch (array[i, index])
             {
                 case 'A': tempChk[0] = true; break;
                 case 'B': tempChk[1] = true; break;
                 case 'C': tempChk[2] = true; break;
             }
         }
-        
-        for(int i = 0; i<3; i++)
+
+        for (int i = 0; i < 3; i++)
         {
             if (!tempChk[i])
             {
