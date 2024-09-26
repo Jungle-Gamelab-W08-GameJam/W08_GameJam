@@ -54,6 +54,9 @@ public class PlayerStats : MonoBehaviour
     [SerializeField]
     private AudioClip failedClip;
 
+    [SerializeField]
+    private GameObject[] gameObjects;
+
     void Start()
     {
         currHP = maxHP;
@@ -68,7 +71,7 @@ public class PlayerStats : MonoBehaviour
 
     public void ChangeStat(int code)
     {
-        float increaseRate = shopManager.increaseRate * shopManager.feverIncreseRate;
+        float increaseRate = shopManager.increaseRate[code] * shopManager.feverIncreseRate;
         List<float> successRate = shopManager.successRate.ConvertAll(x => x * shopManager.feverSuccessRate);
 
         resultText.text = "";
@@ -81,7 +84,7 @@ public class PlayerStats : MonoBehaviour
     IEnumerator TryUpgrade(int code, float increaseRate, List<float> successRate)
     {
         ButtonDisable(false);
-        UpdateMulText(99);
+        UpdateMulText(code, 99);
         UpdateStatText(99);
         StringBuilder sb = new StringBuilder();
 
@@ -97,20 +100,23 @@ public class PlayerStats : MonoBehaviour
             {
                 audioSource.PlayOneShot(successClip);
                 sb.AppendLine("<color=\"blue\">성공!</color>");
+                GameObject tempGameObg = Instantiate(gameObjects[0], GameObject.Find("ShopCanvas").transform);
+                tempGameObg.transform.localPosition = new Vector2(33f, -380.4f + (55 * i));
                 resultText.text = sb.ToString();
                 if (i == 0) stats[code] *= 1 + (increaseRate / 100);
                 else stats[code] *= (Mathf.Pow(1 + (increaseRate / 100), Mathf.Pow(2, i - 1)));
-                UpdateMulText(i);
+                UpdateMulText(code, i);
 
                 time *= 1.5f;
                 highlight.DOMoveY(highlight.position.y + 55, time).SetEase(Ease.InOutQuad);
 
-                if(i >= 5) // fever enter
+                if (i >= 6 && !shopManager.onFever) // fever enter
                 {
-                    if (!shopManager.onFever) shopManager.EnterFever();
+                    shopManager.EnterFever();
+                    UpdateMulText(code, i);
                 }
 
-                if (Random.Range(1, 101) <= 5) // bonus enter
+                if (Random.Range(1, 101) <= 1) // bonus enter
                 {
                     shopManager.EnterBonus();
                 }
@@ -121,6 +127,8 @@ public class PlayerStats : MonoBehaviour
             {
                 audioSource.PlayOneShot(failedClip);
                 sb.Insert(0, "<color=\"red\">실패...</color>\n");
+                GameObject tempGameObg = Instantiate(gameObjects[1], GameObject.Find("ShopCanvas").transform);
+                tempGameObg.transform.localPosition = new Vector2(33f, -380.4f + (55 * i));
                 resultText.text = sb.ToString();
                 statResultText.text = statBefore + " >> " + stats[code].ToString("F2");
                 UpdateStatText(code);
@@ -163,17 +171,24 @@ public class PlayerStats : MonoBehaviour
         ShopGoldText.text += " 메소";
     }
 
-    public void UpdateMulText(int code)
+    public void UpdateMulText(int index, int code)
     {
-        int[] list = { 16213, 1177, 257, 89, 37, 17, 8, 4, 2, 1 };
         mulText.text = "";
+        float num = 1;
+        List<float> nums = new List<float>();
+        for (int i = 0; i < 10; i++)
+        {
+            if (i == 0) num *= 1 + (shopManager.increaseRate[index] / 100);
+            else num *= num;
+            nums.Add(num);
+        }
         for (int i = 0; i < 10; i++)
         {
             if (i == 9 - code)
             {
-                mulText.text += $"<color=\"green\">{list[i] * shopManager.feverIncreseRate} %</color>\n";
+                mulText.text += $"<color=\"green\">{Mathf.RoundToInt(((nums[9 - i] - 1) * 100)) * shopManager.feverIncreseRate} %</color>\n";
             }
-            else mulText.text += $"{list[i] * shopManager.feverIncreseRate} %\n";
+            else mulText.text += $"{Mathf.RoundToInt(((nums[9 - i] - 1) * 100)) * shopManager.feverIncreseRate} %\n";
         }
     }
 
@@ -192,7 +207,7 @@ public class PlayerStats : MonoBehaviour
     {
         UpdateStatText(99);
         UpdateGoldText();
-        UpdateMulText(99);
+        //UpdateMulText(99);
         UpdateHPText();
         //highlight.position = new Vector3(image.position.x, 218, 0);
         upgradeText.text = " ";
@@ -208,6 +223,11 @@ public class PlayerStats : MonoBehaviour
     public void GetGold(double getGold)
     {
         gold += (long)getGold;
+        if (gold <= 0)
+        {
+            gold = 0;
+
+        }
         UpdateGoldText();
     }
 

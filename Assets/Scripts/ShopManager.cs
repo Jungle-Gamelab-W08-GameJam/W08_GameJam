@@ -17,10 +17,20 @@ public class ShopManager : MonoBehaviour
         5 Color
     */
 
-    public float increaseRate;
+    public List<float> increaseRate = new List<float>();
     public List<float> successRate = new List<float>();
     public List<long> scrollCost = new List<long>();
-    public int hpCost;
+
+
+    [Header("HP 구매 관련 변수 목록")]
+    public List<long> hpCostLevelDesign = new List<long>();
+    public long hpCost;
+    public long hpPlusRate;
+    public long hpUpgradeNumber;
+    [SerializeField]
+    private TextMeshProUGUI hpCostText;
+
+    [Header("나머지")]
 
     private PlayerStats playerStats;
 
@@ -63,6 +73,16 @@ public class ShopManager : MonoBehaviour
     [SerializeField]
     private AudioSource scrollStartSound;
 
+    [SerializeField]
+    private Sprite[] players;
+    [SerializeField]
+    private Image playerImg;
+
+    [SerializeField]
+    private Sprite[] weaponImgs;
+    [SerializeField]
+    private Image weapon;
+
     void Start()
     {
         playerStats = GameObject.FindWithTag("Player").GetComponent<PlayerStats>();
@@ -70,11 +90,11 @@ public class ShopManager : MonoBehaviour
         SetProb();
         ExitFever();
         ExitBonus();
+        SetHpCost();
     }
 
     public void OnBuyButton(int stat)
     {
-        clickSound.Play();
         if (playerStats.gold >= scrollCost[stat] * bonusCost)
         {
             scrollStartSound.Play();
@@ -85,7 +105,6 @@ public class ShopManager : MonoBehaviour
             }
             else
             {
-                scrollCost[stat] += (int)Mathf.Pow(10, (battle.floor / 5) - 1);
                 if (scrollLeft[stat] <= 0)
                 {
                     return;
@@ -96,6 +115,8 @@ public class ShopManager : MonoBehaviour
                     SetScrollLeftText();
                     playerStats.gold -= scrollCost[stat] * bonusCost;
                     playerStats.UpdateGoldText();
+                    double temp = scrollCost[stat] * 1.2f;
+                    scrollCost[stat] = (long)temp;
                 }
             }
 
@@ -106,7 +127,7 @@ public class ShopManager : MonoBehaviour
                 feverText.text += feverLeft.ToString();
                 if (feverLeft == 0) ExitFever();
             }
-            
+            clickSound.Play();
             playerStats.ChangeStat(stat);
         }
         else
@@ -130,6 +151,29 @@ public class ShopManager : MonoBehaviour
         //}
         playerStats.ChangeHP(playerStats.maxHP);
     }
+
+    public void SetHpCost()
+    {
+        hpUpgradeNumber = 0;
+        hpCost = hpCostLevelDesign[(int)hpUpgradeNumber];
+        hpCostText.text = hpCost + " 메소";
+    }
+
+    public void OnBuyHPButon()
+    {
+        clickSound.Play();
+        if ((playerStats.gold >= hpCost) && (hpUpgradeNumber < (hpCostLevelDesign.Count - 1)))
+        {
+            playerStats.gold -= hpCost;
+            playerStats.UpdateGoldText();
+            playerStats.maxHP += (int)hpPlusRate;
+            hpUpgradeNumber++;
+            hpCost = hpCostLevelDesign[(int)hpUpgradeNumber];
+            hpCostText.text = hpCost + " 메소";
+            battle.UpdatePlayerHP();
+        }
+    }
+
 
     public void SetCost()
     {
@@ -155,7 +199,7 @@ public class ShopManager : MonoBehaviour
     {
         for (int i = 0; i < scrollLeft.Count; i++)
         {
-            scrollLeft[i] = 10;
+            scrollLeft[i] = 99;
         }
         SetScrollLeftText();
     }
@@ -165,7 +209,7 @@ public class ShopManager : MonoBehaviour
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < scrollLeft.Count; i++)
         {
-            sb.AppendLine((scrollLeft[i]).ToString() + " ");
+            sb.AppendLine("x"+(scrollLeft[i]).ToString() + " ");
         }
         scrollLeftText.text = sb.ToString();
     }
@@ -181,7 +225,6 @@ public class ShopManager : MonoBehaviour
         feverText.text = "피버 타임! 남은 횟수: ";
         feverText.text += feverLeft.ToString();
 
-        playerStats.UpdateMulText(99);
         SetProb();
     }
 
@@ -236,11 +279,20 @@ public class ShopManager : MonoBehaviour
         OnHPButon();
         battle.audioSource.clip = bgms[battle.floor / 5];
         battle.audioSource.Play();
-        playerStats.UpdateMulText(99);
+        //playerStats.UpdateMulText(99);
         playerStats.UpdateHPText();
         battle.coinText.SetActive(true);
         battle.shopText.SetActive(false);
         shopUI.SetActive(false);
         battleUI.SetActive(true);
+        if(battle.floor % 10 == 1)
+        {
+            if(battle.floor/10 != 0)
+            {
+                Debug.Log(battle.floor / 10);
+                playerImg.sprite = players[battle.floor / 10];
+                weapon.sprite = weaponImgs[battle.floor / 10];
+            }
+        }
     }
 }
